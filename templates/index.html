@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DinaTop8er</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+</head>
+
+<body>
+    <div class="TopTextBox">
+        <input type="text" id="TopLeftTextInput" placeholder="Top Left">
+        <input type="file" id="Sponsor1Input" accept="image/*" style="width: 135px;">
+        <input type="file" id="Sponsor2Input" accept="image/*" style="width: 135px;">
+        <input type="file" id="Sponsor3Input" accept="image/*" style="width: 135px;">
+        <input type="file" id="Sponsor4Input" accept="image/*" style="width: 135px;">
+        <input type="text" id="TopRightTextInput" placeholder="Top Right">
+    </div>
+    <br>
+    <div class="PlayerBoxes">
+        <div class="PlayerBox">
+            <input type="text" id="Tag1Input" placeholder="Tag 1" style="width: 50px; margin-right: 5px;">
+            <input type="text" id="Player1Input" placeholder="Player 1" style="width: 100px; margin-right: 0;">
+            <br>
+            <p>Main
+            <select id="personaje1" name="personaje1" style="width: 100px; margin-right: 2%;">
+                <option value="">Personaje</option>
+                {% for personaje in personajes_renders %}
+                    <option value="{{ personaje }}" {% if selected_personajes['selected_personaje1'] == personaje %}selected{% endif %}>{{ personaje }}</option>
+                {% endfor %}
+            </select>
+            Color
+            <select id="color1" name="color1" style="width: 50px; margin-right: 3%;" data-selected="{% if selected_colores['selected_color1'] %}{{ selected_colores['selected_color1'] }}{% endif %}">
+                <option value="">Color</option>
+                {% if selected_personajes['selected_personaje1'] %}
+                    {% for color in personajes_con_colores_renders[selected_personajes['selected_personaje1']] %}
+                        <option value="{{ color }}" {% if selected_colores['selected_color1'] == color %}selected{% endif %}>{{ color }}</option>
+                    {% endfor %}
+                {% endif %}
+            </select>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" style="height: 20px; position: relative; bottom: -5px; cursor: pointer; fill: white;"><path d="M246.6 9.4c-12.5-12.5-32.8-12.5-45.3 0l-128 128c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 109.3 192 320c0 17.7 14.3 32 32 32s32-14.3 32-32l0-210.7 73.4 73.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-128-128zM64 352c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 17.7-14.3 32-32 32L96 448c-17.7 0-32-14.3-32-32l0-64z"/></svg>
+            <input type="file" id="Main1Input" accept="image/*" style="width: 20px; opacity: 0; position: relative; left: -23px; cursor: pointer;">
+            <!-- <p id="selected-personaje1">selected_personaje1 = </p>
+            <p id="selected-color1">selected_color1 = </p>
+            <p id="render-path1">render_path1 = </p> -->
+        </p>
+            <button id="moveLeftMain1">←</button>
+            <button id="moveRightMain1">→</button>
+            <button id="moveUpMain1">↑</button>
+            <button id="moveDownMain1">↓</button>
+            <button id="increaseSizeMain1">+</button>
+            <button id="decreaseSizeMain1">-</button>
+            <button id="toggleZIndexMain1">z</button>
+            
+            <p>Second
+                <select id="secundario_personaje1" name="secundario_personaje1" style="width: 75px; margin-right: 2%;">
+                    <option value="">Personaje</option>
+                    {% for personaje in personajes_stocks %}
+                        <option value="{{ personaje }}" {% if selected_stocks_personajes['selected_stock_personaje1'] == personaje %}selected{% endif %}>{{ personaje }}</option>
+                    {% endfor %}
+                </select>
+                Color
+                <select id="secundario_color1" name="secundario_color1" style="width: 50px; margin-right: 3%;" data-selected="{% if selected_stocks_colores['selected_stock_color1'] %}{{ selected_stocks_colores['selected_stock_color1'] }}{% endif %}">
+                    <option value="">Color</option>
+                    {% if selected_stocks_personajes['selected_stock_personaje1'] %}
+                        {% for color in personajes_con_colores_stocks[selected_stocks_personajes['selected_stock_personaje1']] %}
+                            <option value="{{ color }}" {% if selected_stocks_colores['selected_stock_color1'] == color %}selected{% endif %}>{{ color }}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" style="height: 20px; position: relative; bottom: -5px; cursor: pointer; fill: white;"><path d="M246.6 9.4c-12.5-12.5-32.8-12.5-45.3 0l-128 128c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 109.3 192 320c0 17.7 14.3 32 32 32s32-14.3 32-32l0-210.7 73.4 73.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-128-128zM64 352c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 17.7-14.3 32-32 32L96 448c-17.7 0-32-14.3-32-32l0-64z"/></svg>
+                <input type="file" id="Second1Input" accept="image/*" style="width: 20px; opacity: 0; position: relative; left: -23px; cursor: pointer;">
+            </p>
+
+            <p>Third 
+                <select id="terciario_personaje1" name="terciario_personaje1" style="width: 75px; margin-right: 2%;">
+                    <option value="">Personaje</option>
+                    {% for personaje in personajes_stocks %}
+                        <option value="{{ personaje }}" {% if selected_stocks_personajes['selected_stock_personaje1'] == personaje %}selected{% endif %}>{{ personaje }}</option>
+                    {% endfor %}
+                </select>
+                Color
+                <select id="terciario_color1" name="terciario_color1" style="width: 50px; margin-right: 3%;" data-selected="{% if selected_stocks_colores['selected_stock_color1'] %}{{ selected_stocks_colores['selected_stock_color1'] }}{% endif %}">
+                    <option value="">Color</option>
+                    {% if selected_stocks_personajes['selected_stock_personaje1'] %}
+                        {% for color in personajes_con_colores_stocks[selected_stocks_personajes['selected_stock_personaje1']] %}
+                            <option value="{{ color }}" {% if selected_stocks_colores['selected_stock_color1'] == color %}selected{% endif %}>{{ color }}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" style="height: 20px; position: relative; bottom: -5px; cursor: pointer; fill: white;"><path d="M246.6 9.4c-12.5-12.5-32.8-12.5-45.3 0l-128 128c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 109.3 192 320c0 17.7 14.3 32 32 32s32-14.3 32-32l0-210.7 73.4 73.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-128-128zM64 352c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 17.7-14.3 32-32 32L96 448c-17.7 0-32-14.3-32-32l0-64z"/></svg>
+                <input type="file" id="Third1Input" accept="image/*" style="width: 20px; opacity: 0; position: relative; left: -23px; cursor: pointer;">
+            </p>
+        </div>
+        <div class="PlayerBox">
+            <input type="text" id="Tag2Input" placeholder="Tag 2" style="width: 50px; margin-right: 5px;">
+            <input type="text" id="Player2Input" placeholder="Player 2" style="width: 100px; margin-right: 0;">
+            <br>
+            <p>Main
+            <select id="personaje2" name="personaje2" style="width: 100px; margin-right: 2%;">
+                <option value="">Personaje</option>
+                {% for personaje in personajes_renders %}
+                    <option value="{{ personaje }}" {% if selected_personajes['selected_personaje2'] == personaje %}selected{% endif %}>{{ personaje }}</option>
+                {% endfor %}
+            </select>
+            Color
+            <select id="color2" name="color2" style="width: 50px; margin-right: 3%;" data-selected="{% if selected_colores['selected_color2'] %}{{ selected_colores['selected_color2'] }}{% endif %}">
+                <option value="">Color</option>
+                {% if selected_personajes['selected_personaje2'] %}
+                    {% for color in personajes_con_colores_renders[selected_personajes['selected_personaje2']] %}
+                        <option value="{{ color }}" {% if selected_colores['selected_color2'] == color %}selected{% endif %}>{{ color }}</option>
+                    {% endfor %}
+                {% endif %}
+            </select>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" style="height: 20px; position: relative; bottom: -5px; cursor: pointer; fill: white;"><path d="M246.6 9.4c-12.5-12.5-32.8-12.5-45.3 0l-128 128c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 109.3 192 320c0 17.7 14.3 32 32 32s32-14.3 32-32l0-210.7 73.4 73.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-128-128zM64 352c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 17.7-14.3 32-32 32L96 448c-17.7 0-32-14.3-32-32l0-64z"/></svg>
+            <input type="file" id="Main2Input" accept="image/*" style="width: 20px; opacity: 0; position: relative; left: -23px; cursor: pointer;">
+        </p>
+        
+            <button id="moveLeftMain2">←</button>
+            <button id="moveRightMain2">→</button>
+            <button id="moveUpMain2">↑</button>
+            <button id="moveDownMain2">↓</button>
+            <button id="increaseSizeMain2">+</button>
+            <button id="decreaseSizeMain2">-</button>
+            <button id="toggleZIndexMain2">z</button>
+            
+            <p>Second
+                <select id="secundario_personaje2" name="secundario_personaje2" style="width: 75px; margin-right: 2%;">
+                    <option value="">Personaje</option>
+                    {% for personaje in personajes_stocks %}
+                        <option value="{{ personaje }}" {% if selected_stocks_personajes['selected_stock_personaje2'] == personaje %}selected{% endif %}>{{ personaje }}</option>
+                    {% endfor %}
+                </select>
+                Color
+                <select id="secundario_color2" name="secundario_color2" style="width: 50px; margin-right: 3%;" data-selected="{% if selected_stocks_colores['selected_stock_color2'] %}{{ selected_stocks_colores['selected_stock_color2'] }}{% endif %}">
+                    <option value="">Color</option>
+                    {% if selected_stocks_personajes['selected_stock_personaje2'] %}
+                        {% for color in personajes_con_colores_stocks[selected_stocks_personajes['selected_stock_personaje2']] %}
+                            <option value="{{ color }}" {% if selected_stocks_colores['selected_stock_color2'] == color %}selected{% endif %}>{{ color }}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" style="height: 20px; position: relative; bottom: -5px; cursor: pointer; fill: white;"><path d="M246.6 9.4c-12.5-12.5-32.8-12.5-45.3 0l-128 128c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 109.3 192 320c0 17.7 14.3 32 32 32s32-14.3 32-32l0-210.7 73.4 73.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-128-128zM64 352c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 17.7-14.3 32-32 32L96 448c-17.7 0-32-14.3-32-32l0-64z"/></svg>
+                <input type="file" id="Second2Input" accept="image/*" style="width: 20px; opacity: 0; position: relative; left: -23px; cursor: pointer;">
+            </p>
+
+            <p>Third 
+                <select id="terciario_personaje2" name="terciario_personaje2" style="width: 75px; margin-right: 2%;">
+                    <option value="">Personaje</option>
+                    {% for personaje in personajes_stocks %}
+                        <option value="{{ personaje }}" {% if selected_stocks_personajes['selected_stock_personaje2'] == personaje %}selected{% endif %}>{{ personaje }}</option>
+                    {% endfor %}
+                </select>
+                Color
+                <select id="terciario_color2" name="terciario_color2" style="width: 50px; margin-right: 3%;" data-selected="{% if selected_stocks_colores['selected_stock_color2'] %}{{ selected_stocks_colores['selected_stock_color2'] }}{% endif %}">
+                    <option value="">Color</option>
+                    {% if selected_stocks_personajes['selected_stock_personaje2'] %}
+                        {% for color in personajes_con_colores_stocks[selected_stocks_personajes['selected_stock_personaje2']] %}
+                            <option value="{{ color }}" {% if selected_stocks_colores['selected_stock_color2'] == color %}selected{% endif %}>{{ color }}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" style="height: 20px; position: relative; bottom: -5px; cursor: pointer; fill: white;"><path d="M246.6 9.4c-12.5-12.5-32.8-12.5-45.3 0l-128 128c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 109.3 192 320c0 17.7 14.3 32 32 32s32-14.3 32-32l0-210.7 73.4 73.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-128-128zM64 352c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 17.7-14.3 32-32 32L96 448c-17.7 0-32-14.3-32-32l0-64z"/></svg>
+                <input type="file" id="Third2Input" accept="image/*" style="width: 20px; opacity: 0; position: relative; left: -23px; cursor: pointer;">
+            </p>
+        </div>
+        <div class="PlayerBox">
+            <input type="text" id="Tag3Input" placeholder="Tag 3" style="width: 50px; margin-right: 5px;">
+            <input type="text" id="Player3Input" placeholder="Player 3" style="width: 100px; margin-right: 0;">
+            <br>
+            <p>Main
+                <select id="personaje3" name="personaje3" style="width: 100px; margin-right: 2%;">
+                    <option value="">Personaje</option>
+                    {% for personaje in personajes_renders %}
+                        <option value="{{ personaje }}" {% if selected_personajes['selected_personaje3'] == personaje %}selected{% endif %}>{{ personaje }}</option>
+                    {% endfor %}
+                </select>
+                Color
+                <select id="color3" name="color3" style="width: 50px; margin-right: 3%;" data-selected="{% if selected_colores['selected_color3'] %}{{ selected_colores['selected_color3'] }}{% endif %}">
+                    <option value="">Color</option>
+                    {% if selected_personajes['selected_personaje3'] %}
+                        {% for color in personajes_con_colores_renders[selected_personajes['selected_personaje3']] %}
+                            <option value="{{ color }}" {% if selected_colores['selected_color3'] == color %}selected{% endif %}>{{ color }}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" style="height: 20px; position: relative; bottom: -5px; cursor: pointer; fill: white;"><path d="M246.6 9.4c-12.5-12.5-32.8-12.5-45.3 0l-128 128c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 109.3 192 320c0 17.7 14.3 32 32 32s32-14.3 32-32l0-210.7 73.4 73.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-128-128zM64 352c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 17.7-14.3-32-32 32L96 448c-17.7 0-32-14.3-32-32l0-64z"/></svg>
+                <input type="file" id="Main3Input" accept="image/*" style="width: 20px; opacity: 0; position: relative; left: -23px; cursor: pointer;">
+            </p>
+            <button id="moveLeftMain3">←</button>
+            <button id="moveRightMain3">→</button>
+            <button id="moveUpMain3">↑</button>
+            <button id="moveDownMain3">↓</button>
+            <button id="increaseSizeMain3">+</button>
+            <button id="decreaseSizeMain3">-</button>
+            <button id="toggleZIndexMain3">z</button>
+        
+            <p>Second
+                <select id="secundario_personaje3" name="secundario_personaje3" style="width: 75px; margin-right: 2%;">
+                    <option value="">Personaje</option>
+                    {% for personaje in personajes_stocks %}
+                        <option value="{{ personaje }}" {% if selected_stocks_personajes['selected_stock_personaje3'] == personaje %}selected{% endif %}>{{ personaje }}</option>
+                    {% endfor %}
+                </select>
+                Color
+                <select id="secundario_color3" name="secundario_color3" style="width: 50px; margin-right: 3%;" data-selected="{% if selected_stocks_colores['selected_stock_color3'] %}{{ selected_stocks_colores['selected_stock_color3'] }}{% endif %}">
+                    <option value="">Color</option>
+                    {% if selected_stocks_personajes['selected_stock_personaje3'] %}
+                        {% for color in personajes_con_colores_stocks[selected_stocks_personajes['selected_stock_personaje3']] %}
+                            <option value="{{ color }}" {% if selected_stocks_colores['selected_stock_color3'] == color %}selected{% endif %}>{{ color }}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" style="height: 20px; position: relative; bottom: -5px; cursor: pointer; fill: white;"><path d="M246.6 9.4c-12.5-12.5-32.8-12.5-45.3 0l-128 128c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 109.3 192 320c0 17.7 14.3 32 32 32s32-14.3 32-32l0-210.7 73.4 73.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-128-128zM64 352c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 17.7-14.3-32-32 32L96 448c-17.7 0-32-14.3-32-32l0-64z"/></svg>
+                <input type="file" id="Second3Input" accept="image/*" style="width: 20px; opacity: 0; position: relative; left: -23px; cursor: pointer;">
+            </p>
+        
+            <p>Third
+                <select id="terciario_personaje3" name="terciario_personaje3" style="width: 75px; margin-right: 2%;">
+                    <option value="">Personaje</option>
+                    {% for personaje in personajes_stocks %}
+                        <option value="{{ personaje }}" {% if selected_stocks_personajes['selected_stock_personaje3'] == personaje %}selected{% endif %}>{{ personaje }}</option>
+                    {% endfor %}
+                </select>
+                Color
+                <select id="terciario_color3" name="terciario_color3" style="width: 50px; margin-right: 3%;" data-selected="{% if selected_stocks_colores['selected_stock_color3'] %}{{ selected_stocks_colores['selected_stock_color3'] }}{% endif %}">
+                    <option value="">Color</option>
+                    {% if selected_stocks_personajes['selected_stock_personaje3'] %}
+                        {% for color in personajes_con_colores_stocks[selected_stocks_personajes['selected_stock_personaje3']] %}
+                            <option value="{{ color }}" {% if selected_stocks_colores['selected_stock_color3'] == color %}selected{% endif %}>{{ color }}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" style="height: 20px; position: relative; bottom: -5px; cursor: pointer; fill: white;"><path d="M246.6 9.4c-12.5-12.5-32.8-12.5-45.3 0l-128 128c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 109.3 192 320c0 17.7 14.3 32 32 32s32-14.3 32-32l0-210.7 73.4 73.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-128-128zM64 352c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 17.7-14.3-32-32 32L96 448c-17.7 0-32-14.3-32-32l0-64z"/></svg>
+                <input type="file" id="Third3Input" accept="image/*" style="width: 20px; opacity: 0; position: relative; left: -23px; cursor: pointer;">
+            </p>
+        </div>
+        <div class="PlayerBox">
+            <input type="text" id="Tag4Input" placeholder="Tag 4" style="width: 50px; margin-right: 5px;">
+            <input type="text" id="Player4Input" placeholder="Player 4" style="width: 100px; margin-right: 0;">
+            <br>
+            <p>Main
+                <select id="personaje4" name="personaje4" style="width: 100px; margin-right: 2%;">
+                    <option value="">Personaje</option>
+                    {% for personaje in personajes_renders %}
+                        <option value="{{ personaje }}" {% if selected_personajes['selected_personaje4'] == personaje %}selected{% endif %}>{{ personaje }}</option>
+                    {% endfor %}
+                </select>
+                Color
+                <select id="color4" name="color4" style="width: 50px; margin-right: 3%;" data-selected="{% if selected_colores['selected_color4'] %}{{ selected_colores['selected_color4'] }}{% endif %}">
+                    <option value="">Color</option>
+                    {% if selected_personajes['selected_personaje4'] %}
+                        {% for color in personajes_con_colores_renders[selected_personajes['selected_personaje4']] %}
+                            <option value="{{ color }}" {% if selected_colores['selected_color4'] == color %}selected{% endif %}>{{ color }}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" style="height: 20px; position: relative; bottom: -5px; cursor: pointer; fill: white;"><path d="M246.6 9.4c-12.5-12.5-32.8-12.5-45.3 0l-128 128c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 109.3 192 320c0 17.7 14.3 32 32 32s32-14.3 32-32l0-210.7 73.4 73.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-128-128zM64 352c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 17.7-14.3-32-32 32L96 448c-17.7 0-32-14.3-32-32l0-64z"/></svg>
+                <input type="file" id="Main4Input" accept="image/*" style="width: 20px; opacity: 0; position: relative; left: -23px; cursor: pointer;">
+            </p>
+            <button id="moveLeftMain4">←</button>
+            <button id="moveRightMain4">→</button>
+            <button id="moveUpMain4">↑</button>
+            <button id="moveDownMain4">↓</button>
+            <button id="increaseSizeMain4">+</button>
+            <button id="decreaseSizeMain4">-</button>
+            <button id="toggleZIndexMain4">z</button>
+        
+            <p>Second
+                <select id="secundario_personaje4" name="secundario_personaje4" style="width: 75px; margin-right: 2%;">
+                    <option value="">Personaje</option>
+                    {% for personaje in personajes_stocks %}
+                        <option value="{{ personaje }}" {% if selected_stocks_personajes['selected_stock_personaje4'] == personaje %}selected{% endif %}>{{ personaje }}</option>
+                    {% endfor %}
+                </select>
+                Color
+                <select id="secundario_color4" name="secundario_color4" style="width: 50px; margin-right: 3%;" data-selected="{% if selected_stocks_colores['selected_stock_color4'] %}{{ selected_stocks_colores['selected_stock_color4'] }}{% endif %}">
+                    <option value="">Color</option>
+                    {% if selected_stocks_personajes['selected_stock_personaje4'] %}
+                        {% for color in personajes_con_colores_stocks[selected_stocks_personajes['selected_stock_personaje4']] %}
+                            <option value="{{ color }}" {% if selected_stocks_colores['selected_stock_color4'] == color %}selected{% endif %}>{{ color }}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" style="height: 20px; position: relative; bottom: -5px; cursor: pointer; fill: white;"><path d="M246.6 9.4c-12.5-12.5-32.8-12.5-45.3 0l-128 128c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 109.3 192 320c0 17.7 14.3 32 32 32s32-14.3 32-32l0-210.7 73.4 73.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-128-128zM64 352c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 17.7-14.3-32-32 32L96 448c-17.7 0-32-14.3-32-32l0-64z"/></svg>
+                <input type="file" id="Second4Input" accept="image/*" style="width: 20px; opacity: 0; position: relative; left: -23px; cursor: pointer;">
+            </p>
+        
+            <p>Third
+                <select id="terciario_personaje4" name="terciario_personaje4" style="width: 75px; margin-right: 2%;">
+                    <option value="">Personaje</option>
+                    {% for personaje in personajes_stocks %}
+                        <option value="{{ personaje }}" {% if selected_stocks_personajes['selected_stock_personaje4'] == personaje %}selected{% endif %}>{{ personaje }}</option>
+                    {% endfor %}
+                </select>
+                Color
+                <select id="terciario_color4" name="terciario_color4" style="width: 50px; margin-right: 3%;" data-selected="{% if selected_stocks_colores['selected_stock_color4'] %}{{ selected_stocks_colores['selected_stock_color4'] }}{% endif %}">
+                    <option value="">Color</option>
+                    {% if selected_stocks_personajes['selected_stock_personaje4'] %}
+                        {% for color in personajes_con_colores_stocks[selected_stocks_personajes['selected_stock_personaje4']] %}
+                            <option value="{{ color }}" {% if selected_stocks_colores['selected_stock_color4'] == color %}selected{% endif %}>{{ color }}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" style="height: 20px; position: relative; bottom: -5px; cursor: pointer; fill: white;"><path d="M246.6 9.4c-12.5-12.5-32.8-12.5-45.3 0l-128 128c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 109.3 192 320c0 17.7 14.3 32 32 32s32-14.3 32-32l0-210.7 73.4 73.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-128-128zM64 352c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 17.7-14.3-32-32 32L96 448c-17.7 0-32-14.3-32-32l0-64z"/></svg>
+                <input type="file" id="Third4Input" accept="image/*" style="width: 20px; opacity: 0; position: relative; left: -23px; cursor: pointer;">
+            </p>
+        </div>
+    </div>
+    <br>
+    <div class="PlayerBoxes">
+        <div class="PlayerBox">
+            <input type="text" id="Tag5Input" placeholder="Tag 5" style="width: 50px; margin-right: 5px;">
+            <input type="text" id="Player5Input" placeholder="Player 5" style="width: 100px; margin-right: 0;">
+            <br>
+            <p>Main
+                <select id="personaje5" name="personaje5" style="width: 100px; margin-right: 2%;">
+                    <option value="">Personaje</option>
+                    {% for personaje in personajes_renders %}
+                        <option value="{{ personaje }}" {% if selected_personajes['selected_personaje5'] == personaje %}selected{% endif %}>{{ personaje }}</option>
+                    {% endfor %}
+                </select>
+                Color
+                <select id="color5" name="color5" style="width: 50px; margin-right: 3%;" data-selected="{% if selected_colores['selected_color5'] %}{{ selected_colores['selected_color5'] }}{% endif %}">
+                    <option value="">Color</option>
+                    {% if selected_personajes['selected_personaje5'] %}
+                        {% for color in personajes_con_colores_renders[selected_personajes['selected_personaje5']] %}
+                            <option value="{{ color }}" {% if selected_colores['selected_color5'] == color %}selected{% endif %}>{{ color }}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" style="height: 20px; position: relative; bottom: -5px; cursor: pointer; fill: white;"><path d="M246.6 9.4c-12.5-12.5-32.8-12.5-45.3 0l-128 128c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 109.3 192 320c0 17.7 14.3 32 32 32s32-14.3 32-32l0-210.7 73.4 73.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-128-128zM64 352c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 17.7-14.3-32-32 32L96 448c-17.7 0-32-14.3-32-32l0-64z"/></svg>
+                <input type="file" id="Main5Input" accept="image/*" style="width: 20px; opacity: 0; position: relative; left: -23px; cursor: pointer;">
+            </p>
+            <button id="moveLeftMain5">←</button>
+            <button id="moveRightMain5">→</button>
+            <button id="moveUpMain5">↑</button>
+            <button id="moveDownMain5">↓</button>
+            <button id="increaseSizeMain5">+</button>
+            <button id="decreaseSizeMain5">-</button>
+            <button id="toggleZIndexMain5">z</button>
+        
+            <p>Second
+                <select id="secundario_personaje5" name="secundario_personaje5" style="width: 75px; margin-right: 2%;">
+                    <option value="">Personaje</option>
+                    {% for personaje in personajes_stocks %}
+                        <option value="{{ personaje }}" {% if selected_stocks_personajes['selected_stock_personaje5'] == personaje %}selected{% endif %}>{{ personaje }}</option>
+                    {% endfor %}
+                </select>
+                Color
+                <select id="secundario_color5" name="secundario_color5" style="width: 50px; margin-right: 3%;" data-selected="{% if selected_stocks_colores['selected_stock_color5'] %}{{ selected_stocks_colores['selected_stock_color5'] }}{% endif %}">
+                    <option value="">Color</option>
+                    {% if selected_stocks_personajes['selected_stock_personaje5'] %}
+                        {% for color in personajes_con_colores_stocks[selected_stocks_personajes['selected_stock_personaje5']] %}
+                            <option value="{{ color }}" {% if selected_stocks_colores['selected_stock_color5'] == color %}selected{% endif %}>{{ color }}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" style="height: 20px; position: relative; bottom: -5px; cursor: pointer; fill: white;"><path d="M246.6 9.4c-12.5-12.5-32.8-12.5-45.3 0l-128 128c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 109.3 192 320c0 17.7 14.3 32 32 32s32-14.3 32-32l0-210.7 73.4 73.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-128-128zM64 352c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 17.7-14.3-32-32 32L96 448c-17.7 0-32-14.3-32-32l0-64z"/></svg>
+                <input type="file" id="Second5Input" accept="image/*" style="width: 20px; opacity: 0; position: relative; left: -23px; cursor: pointer;">
+            </p>
+        
+            <p>Third
+                <select id="terciario_personaje5" name="terciario_personaje5" style="width: 75px; margin-right: 2%;">
+                    <option value="">Personaje</option>
+                    {% for personaje in personajes_stocks %}
+                        <option value="{{ personaje }}" {% if selected_stocks_personajes['selected_stock_personaje5'] == personaje %}selected{% endif %}>{{ personaje }}</option>
+                    {% endfor %}
+                </select>
+                Color
+                <select id="terciario_color5" name="terciario_color5" style="width: 50px; margin-right: 3%;" data-selected="{% if selected_stocks_colores['selected_stock_color5'] %}{{ selected_stocks_colores['selected_stock_color5'] }}{% endif %}">
+                    <option value="">Color</option>
+                    {% if selected_stocks_personajes['selected_stock_personaje5'] %}
+                        {% for color in personajes_con_colores_stocks[selected_stocks_personajes['selected_stock_personaje5']] %}
+                            <option value="{{ color }}" {% if selected_stocks_colores['selected_stock_color5'] == color %}selected{% endif %}>{{ color }}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" style="height: 20px; position: relative; bottom: -5px; cursor: pointer; fill: white;"><path d="M246.6 9.4c-12.5-12.5-32.8-12.5-45.3 0l-128 128c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 109.3 192 320c0 17.7 14.3 32 32 32s32-14.3 32-32l0-210.7 73.4 73.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-128-128zM64 352c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 17.7-14.3-32-32 32L96 448c-17.7 0-32-14.3-32-32l0-64z"/></svg>
+                <input type="file" id="Third5Input" accept="image/*" style="width: 20px; opacity: 0; position: relative; left: -23px; cursor: pointer;">
+            </p>
+        </div>
+        <div class="PlayerBox">
+            <input type="text" id="Tag6Input" placeholder="Tag 6" style="width: 50px; margin-right: 5px;">
+            <input type="text" id="Player6Input" placeholder="Player 6" style="width: 100px; margin-right: 0;">
+            <br>
+            <p>Main
+                <select id="personaje6" name="personaje6" style="width: 100px; margin-right: 2%;">
+                    <option value="">Personaje</option>
+                    {% for personaje in personajes_renders %}
+                        <option value="{{ personaje }}" {% if selected_personajes['selected_personaje6'] == personaje %}selected{% endif %}>{{ personaje }}</option>
+                    {% endfor %}
+                </select>
+                Color
+                <select id="color6" name="color6" style="width: 50px; margin-right: 3%;" data-selected="{% if selected_colores['selected_color6'] %}{{ selected_colores['selected_color6'] }}{% endif %}">
+                    <option value="">Color</option>
+                    {% if selected_personajes['selected_personaje6'] %}
+                        {% for color in personajes_con_colores_renders[selected_personajes['selected_personaje6']] %}
+                            <option value="{{ color }}" {% if selected_colores['selected_color6'] == color %}selected{% endif %}>{{ color }}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" style="height: 20px; position: relative; bottom: -5px; cursor: pointer; fill: white;"><path d="M246.6 9.4c-12.5-12.5-32.8-12.5-45.3 0l-128 128c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 109.3 192 320c0 17.7 14.3 32 32 32s32-14.3 32-32l0-210.7 73.4 73.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-128-128zM64 352c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 17.7-14.3-32-32 32L96 448c-17.7 0-32-14.3-32-32l0-64z"/></svg>
+                <input type="file" id="Main6Input" accept="image/*" style="width: 20px; opacity: 0; position: relative; left: -23px; cursor: pointer;">
+            </p>
+            <button id="moveLeftMain6">←</button>
+            <button id="moveRightMain6">→</button>
+            <button id="moveUpMain6">↑</button>
+            <button id="moveDownMain6">↓</button>
+            <button id="increaseSizeMain6">+</button>
+            <button id="decreaseSizeMain6">-</button>
+            <button id="toggleZIndexMain6">z</button>
+        
+            <p>Second
+                <select id="secundario_personaje6" name="secundario_personaje6" style="width: 75px; margin-right: 2%;">
+                    <option value="">Personaje</option>
+                    {% for personaje in personajes_stocks %}
+                        <option value="{{ personaje }}" {% if selected_stocks_personajes['selected_stock_personaje6'] == personaje %}selected{% endif %}>{{ personaje }}</option>
+                    {% endfor %}
+                </select>
+                Color
+                <select id="secundario_color6" name="secundario_color6" style="width: 50px; margin-right: 3%;" data-selected="{% if selected_stocks_colores['selected_stock_color6'] %}{{ selected_stocks_colores['selected_stock_color6'] }}{% endif %}">
+                    <option value="">Color</option>
+                    {% if selected_stocks_personajes['selected_stock_personaje6'] %}
+                        {% for color in personajes_con_colores_stocks[selected_stocks_personajes['selected_stock_personaje6']] %}
+                            <option value="{{ color }}" {% if selected_stocks_colores['selected_stock_color6'] == color %}selected{% endif %}>{{ color }}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" style="height: 20px; position: relative; bottom: -5px; cursor: pointer; fill: white;"><path d="M246.6 9.4c-12.5-12.5-32.8-12.5-45.3 0l-128 128c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 109.3 192 320c0 17.7 14.3 32 32 32s32-14.3 32-32l0-210.7 73.4 73.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-128-128zM64 352c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 17.7-14.3-32-32 32L96 448c-17.7 0-32-14.3-32-32l0-64z"/></svg>
+                <input type="file" id="Second6Input" accept="image/*" style="width: 20px; opacity: 0; position: relative; left: -23px; cursor: pointer;">
+            </p>
+        
+            <p>Third
+                <select id="terciario_personaje6" name="terciario_personaje6" style="width: 75px; margin-right: 2%;">
+                    <option value="">Personaje</option>
+                    {% for personaje in personajes_stocks %}
+                        <option value="{{ personaje }}" {% if selected_stocks_personajes['selected_stock_personaje6'] == personaje %}selected{% endif %}>{{ personaje }}</option>
+                    {% endfor %}
+                </select>
+                Color
+                <select id="terciario_color6" name="terciario_color6" style="width: 50px; margin-right: 3%;" data-selected="{% if selected_stocks_colores['selected_stock_color6'] %}{{ selected_stocks_colores['selected_stock_color6'] }}{% endif %}">
+                    <option value="">Color</option>
+                    {% if selected_stocks_personajes['selected_stock_personaje6'] %}
+                        {% for color in personajes_con_colores_stocks[selected_stocks_personajes['selected_stock_personaje6']] %}
+                            <option value="{{ color }}" {% if selected_stocks_colores['selected_stock_color6'] == color %}selected{% endif %}>{{ color }}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" style="height: 20px; position: relative; bottom: -5px; cursor: pointer; fill: white;"><path d="M246.6 9.4c-12.5-12.5-32.8-12.5-45.3 0l-128 128c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 109.3 192 320c0 17.7 14.3 32 32 32s32-14.3 32-32l0-210.7 73.4 73.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-128-128zM64 352c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 17.7-14.3-32-32 32L96 448c-17.7 0-32-14.3-32-32l0-64z"/></svg>
+                <input type="file" id="Third6Input" accept="image/*" style="width: 20px; opacity: 0; position: relative; left: -23px; cursor: pointer;">
+            </p>
+        </div>
+        <div class="PlayerBox">
+            <input type="text" id="Tag7Input" placeholder="Tag 7" style="width: 50px; margin-right: 5px;">
+            <input type="text" id="Player7Input" placeholder="Player 7" style="width: 100px; margin-right: 0;">
+            <br>
+            <p>Main
+                <select id="personaje7" name="personaje7" style="width: 100px; margin-right: 2%;">
+                    <option value="">Personaje</option>
+                    {% for personaje in personajes_renders %}
+                        <option value="{{ personaje }}" {% if selected_personajes['selected_personaje7'] == personaje %}selected{% endif %}>{{ personaje }}</option>
+                    {% endfor %}
+                </select>
+                Color
+                <select id="color7" name="color7" style="width: 50px; margin-right: 3%;" data-selected="{% if selected_colores['selected_color7'] %}{{ selected_colores['selected_color7'] }}{% endif %}">
+                    <option value="">Color</option>
+                    {% if selected_personajes['selected_personaje7'] %}
+                        {% for color in personajes_con_colores_renders[selected_personajes['selected_personaje7']] %}
+                            <option value="{{ color }}" {% if selected_colores['selected_color7'] == color %}selected{% endif %}>{{ color }}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" style="height: 20px; position: relative; bottom: -5px; cursor: pointer; fill: white;"><path d="M246.6 9.4c-12.5-12.5-32.8-12.5-45.3 0l-128 128c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 109.3 192 320c0 17.7 14.3 32 32 32s32-14.3 32-32l0-210.7 73.4 73.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-128-128zM64 352c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 17.7-14.3-32-32 32L96 448c-17.7 0-32-14.3-32-32l0-64z"/></svg>
+                <input type="file" id="Main7Input" accept="image/*" style="width: 20px; opacity: 0; position: relative; left: -23px; cursor: pointer;">
+            </p>
+            <button id="moveLeftMain7">←</button>
+            <button id="moveRightMain7">→</button>
+            <button id="moveUpMain7">↑</button>
+            <button id="moveDownMain7">↓</button>
+            <button id="increaseSizeMain7">+</button>
+            <button id="decreaseSizeMain7">-</button>
+            <button id="toggleZIndexMain7">z</button>
+        
+            <p>Second
+                <select id="secundario_personaje7" name="secundario_personaje7" style="width: 75px; margin-right: 2%;">
+                    <option value="">Personaje</option>
+                    {% for personaje in personajes_stocks %}
+                        <option value="{{ personaje }}" {% if selected_stocks_personajes['selected_stock_personaje7'] == personaje %}selected{% endif %}>{{ personaje }}</option>
+                    {% endfor %}
+                </select>
+                Color
+                <select id="secundario_color7" name="secundario_color7" style="width: 50px; margin-right: 3%;" data-selected="{% if selected_stocks_colores['selected_stock_color7'] %}{{ selected_stocks_colores['selected_stock_color7'] }}{% endif %}">
+                    <option value="">Color</option>
+                    {% if selected_stocks_personajes['selected_stock_personaje7'] %}
+                        {% for color in personajes_con_colores_stocks[selected_stocks_personajes['selected_stock_personaje7']] %}
+                            <option value="{{ color }}" {% if selected_stocks_colores['selected_stock_color7'] == color %}selected{% endif %}>{{ color }}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" style="height: 20px; position: relative; bottom: -5px; cursor: pointer; fill: white;"><path d="M246.6 9.4c-12.5-12.5-32.8-12.5-45.3 0l-128 128c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 109.3 192 320c0 17.7 14.3 32 32 32s32-14.3 32-32l0-210.7 73.4 73.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-128-128zM64 352c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 17.7-14.3-32-32 32L96 448c-17.7 0-32-14.3-32-32l0-64z"/></svg>
+                <input type="file" id="Second7Input" accept="image/*" style="width: 20px; opacity: 0; position: relative; left: -23px; cursor: pointer;">
+            </p>
+        
+            <p>Third
+                <select id="terciario_personaje7" name="terciario_personaje7" style="width: 75px; margin-right: 2%;">
+                    <option value="">Personaje</option>
+                    {% for personaje in personajes_stocks %}
+                        <option value="{{ personaje }}" {% if selected_stocks_personajes['selected_stock_personaje7'] == personaje %}selected{% endif %}>{{ personaje }}</option>
+                    {% endfor %}
+                </select>
+                Color
+                <select id="terciario_color7" name="terciario_color7" style="width: 50px; margin-right: 3%;" data-selected="{% if selected_stocks_colores['selected_stock_color7'] %}{{ selected_stocks_colores['selected_stock_color7'] }}{% endif %}">
+                    <option value="">Color</option>
+                    {% if selected_stocks_personajes['selected_stock_personaje7'] %}
+                        {% for color in personajes_con_colores_stocks[selected_stocks_personajes['selected_stock_personaje7']] %}
+                            <option value="{{ color }}" {% if selected_stocks_colores['selected_stock_color7'] == color %}selected{% endif %}>{{ color }}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" style="height: 20px; position: relative; bottom: -5px; cursor: pointer; fill: white;"><path d="M246.6 9.4c-12.5-12.5-32.8-12.5-45.3 0l-128 128c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 109.3 192 320c0 17.7 14.3 32 32 32s32-14.3 32-32l0-210.7 73.4 73.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-128-128zM64 352c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 17.7-14.3-32-32 32L96 448c-17.7 0-32-14.3-32-32l0-64z"/></svg>
+                <input type="file" id="Third7Input" accept="image/*" style="width: 20px; opacity: 0; position: relative; left: -23px; cursor: pointer;">
+            </p>
+        </div>
+        <div class="PlayerBox">
+            <input type="text" id="Tag8Input" placeholder="Tag 8" style="width: 50px; margin-right: 5px;">
+            <input type="text" id="Player8Input" placeholder="Player 8" style="width: 100px; margin-right: 0;">
+            <br>
+            <p>Main
+                <select id="personaje8" name="personaje8" style="width: 100px; margin-right: 2%;">
+                    <option value="">Personaje</option>
+                    {% for personaje in personajes_renders %}
+                        <option value="{{ personaje }}" {% if selected_personajes['selected_personaje8'] == personaje %}selected{% endif %}>{{ personaje }}</option>
+                    {% endfor %}
+                </select>
+                Color
+                <select id="color8" name="color8" style="width: 50px; margin-right: 3%;" data-selected="{% if selected_colores['selected_color8'] %}{{ selected_colores['selected_color8'] }}{% endif %}">
+                    <option value="">Color</option>
+                    {% if selected_personajes['selected_personaje8'] %}
+                        {% for color in personajes_con_colores_renders[selected_personajes['selected_personaje8']] %}
+                            <option value="{{ color }}" {% if selected_colores['selected_color8'] == color %}selected{% endif %}>{{ color }}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" style="height: 20px; position: relative; bottom: -5px; cursor: pointer; fill: white;"><path d="M246.6 9.4c-12.5-12.5-32.8-12.5-45.3 0l-128 128c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 109.3 192 320c0 17.7 14.3 32 32 32s32-14.3 32-32l0-210.7 73.4 73.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-128-128zM64 352c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 17.7-14.3-32-32 32L96 448c-17.7 0-32-14.3-32-32l0-64z"/></svg>
+                <input type="file" id="Main8Input" accept="image/*" style="width: 20px; opacity: 0; position: relative; left: -23px; cursor: pointer;">
+            </p>
+            <button id="moveLeftMain8">←</button>
+            <button id="moveRightMain8">→</button>
+            <button id="moveUpMain8">↑</button>
+            <button id="moveDownMain8">↓</button>
+            <button id="increaseSizeMain8">+</button>
+            <button id="decreaseSizeMain8">-</button>
+            <button id="toggleZIndexMain8">z</button>
+        
+            <p>Second
+                <select id="secundario_personaje8" name="secundario_personaje8" style="width: 75px; margin-right: 2%;">
+                    <option value="">Personaje</option>
+                    {% for personaje in personajes_stocks %}
+                        <option value="{{ personaje }}" {% if selected_stocks_personajes['selected_stock_personaje8'] == personaje %}selected{% endif %}>{{ personaje }}</option>
+                    {% endfor %}
+                </select>
+                Color
+                <select id="secundario_color8" name="secundario_color8" style="width: 50px; margin-right: 3%;" data-selected="{% if selected_stocks_colores['selected_stock_color8'] %}{{ selected_stocks_colores['selected_stock_color8'] }}{% endif %}">
+                    <option value="">Color</option>
+                    {% if selected_stocks_personajes['selected_stock_personaje8'] %}
+                        {% for color in personajes_con_colores_stocks[selected_stocks_personajes['selected_stock_personaje8']] %}
+                            <option value="{{ color }}" {% if selected_stocks_colores['selected_stock_color8'] == color %}selected{% endif %}>{{ color }}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" style="height: 20px; position: relative; bottom: -5px; cursor: pointer; fill: white;"><path d="M246.6 9.4c-12.5-12.5-32.8-12.5-45.3 0l-128 128c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 109.3 192 320c0 17.7 14.3 32 32 32s32-14.3 32-32l0-210.7 73.4 73.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-128-128zM64 352c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 17.7-14.3-32-32 32L96 448c-17.7 0-32-14.3-32-32l0-64z"/></svg>
+                <input type="file" id="Second8Input" accept="image/*" style="width: 20px; opacity: 0; position: relative; left: -23px; cursor: pointer;">
+            </p>
+        
+            <p>Third
+                <select id="terciario_personaje8" name="terciario_personaje8" style="width: 75px; margin-right: 2%;">
+                    <option value="">Personaje</option>
+                    {% for personaje in personajes_stocks %}
+                        <option value="{{ personaje }}" {% if selected_stocks_personajes['selected_stock_personaje8'] == personaje %}selected{% endif %}>{{ personaje }}</option>
+                    {% endfor %}
+                </select>
+                Color
+                <select id="terciario_color8" name="terciario_color8" style="width: 50px; margin-right: 3%;" data-selected="{% if selected_stocks_colores['selected_stock_color8'] %}{{ selected_stocks_colores['selected_stock_color8'] }}{% endif %}">
+                    <option value="">Color</option>
+                    {% if selected_stocks_personajes['selected_stock_personaje8'] %}
+                        {% for color in personajes_con_colores_stocks[selected_stocks_personajes['selected_stock_personaje8']] %}
+                            <option value="{{ color }}" {% if selected_stocks_colores['selected_stock_color8'] == color %}selected{% endif %}>{{ color }}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" style="height: 20px; position: relative; bottom: -5px; cursor: pointer; fill: white;"><path d="M246.6 9.4c-12.5-12.5-32.8-12.5-45.3 0l-128 128c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 109.3 192 320c0 17.7 14.3 32 32 32s32-14.3 32-32l0-210.7 73.4 73.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-128-128zM64 352c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-64c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64c0 17.7-14.3-32-32 32L96 448c-17.7 0-32-14.3-32-32l0-64z"/></svg>
+                <input type="file" id="Third8Input" accept="image/*" style="width: 20px; opacity: 0; position: relative; left: -23px; cursor: pointer;">
+            </p>
+        </div>
+    </div>
+    <br>
+    <div class="BottomTextBox">
+        <input type="text" id="BottomLeftTextInput" placeholder="Bottom Left">
+        <input type="file" id="Sponsor5Input" accept="image/*" style="width: 135px;">
+        <input type="file" id="Sponsor6Input" accept="image/*" style="width: 135px;">
+        <input type="file" id="Sponsor7Input" accept="image/*" style="width: 135px;">
+        <input type="file" id="Sponsor8Input" accept="image/*" style="width: 135px;">
+        <input type="text" id="BottomRightTextInput" placeholder="Bottom Right">
+    </div>
+
+    <br>
+    
+    <p style="margin-left: 1%;">Bg <input type="file" id="BgInput" accept="image/*"  style="width: 135px;"> 2000x881 </p>
+
+    <button onclick="Send()" style="margin-left: 1%;">Enviar</button> <button id="updateImagesButton" style="margin: 20px;">Actualizar Imágenes</button>
+
+    <br>
+
+    <div class="top8_preview">  
+        <img id="BgShow" src="{{ url_for('static', filename='Basic/Bg.png') }}" alt="Background" style="width: auto; height: 720px; display: block; z-index: 1; position: absolute;">
+        <img id="Top8_frame" src="{{ url_for('static', filename='Basic/Layout.png') }}" alt="Layout" style="width: 1280px; height: 720px; display: block; z-index: 3; position: absolute; opacity: 1;">
+        <img id="Top8_text" src="{{ url_for('static', filename='Basic/Txt.png') }}" alt="Txt" style="width: 1280px; height: 720px; display: block; z-index: 4; position: absolute;">
+        
+        <div class="TopText">
+            <div class="TopLeft">
+                <div id="TopLeftText">Bonus Stage VI - Ultimate Singles</div>
+            </div>
+            <div class="TopRight">
+                <img id="Sponsor1" src="https://i.imgur.com/7xnFRss.png">
+                <img id="Sponsor2" src="https://i.imgur.com/TYseSnI.png">
+                <img id="Sponsor3" src="#">
+                <img id="Sponsor4" src="#">
+                <div id="TopRightText">start.gg/bonus11</div>
+            </div>
+        </div>
+        
+        <div class="BottomText">
+            <div class="BottomLeft">
+                <div id="BottomLeftText">25/01/25 - Checkpoint Game Center, Lechería - 33 Participants</div>
+            </div>
+            <div class="BottomRight">
+                <img id="Sponsor5" src="https://i.imgur.com/7xnFRss.png">
+                <img id="Sponsor6" src="https://i.imgur.com/TYseSnI.png">
+                <img id="Sponsor7" src="#">
+                <img id="Sponsor8" src="#">
+                <div id="BottomRightText"></div>
+            </div>
+        </div>
+
+        <div class="Name1">
+            <p class="Tag" id="Tag1">C5</p> <p id="Player1">Strke</p>
+        </div>
+
+        <div class="Name2">
+            <p class="Tag" id="Tag2">Dinoco</p> <p id="Player2">Strife</p>
+        </div>
+
+        <div class="Name3">
+            <p class="Tag" id="Tag3">OK</p> <p id="Player3">Jacobo</p>
+        </div>
+
+        <div class="Name4">
+            <p class="Tag" id="Tag4">TSP</p> <p id="Player4">Kaisergala</p>
+        </div>
+
+        <div class="Name5">
+            <p class="Tag" id="Tag5">TMP</p> <p id="Player5">Samuerinay</p>
+        </div>
+
+        <div class="Name6">
+            <p class="Tag" id="Tag6">TPPO</p> <p id="Player6">Wawamax</p>
+        </div>
+
+        <div class="Name7">
+            <p class="Tag" id="Tag7">TSP</p> <p id="Player7">Jeaner</p>
+        </div>
+
+        <div class="Name8">
+            <p class="Tag" id="Tag8">MLG</p> <p id="Player8">Cubicalsquid</p>
+        </div>
+
+        <div class="polygon1">
+            <img id="render-image1" class="render-image" src="" alt="Render de Main 1" style="height: 120%; transform: translate(-50%, -50%); top: 60%; left: 40%; display: none; z-index: 2; object-fit: contain; position: absolute; filter: drop-shadow(20px 10px 0.5px rgba(38, 62, 218, 0.75));">
+            <img id="stock-image1" class="render-image" src="" alt="Stock de Secundario 1" style="max-width: 48px; transform: translate(-50%, -50%); top: 9%; right: 1%; display: none; z-index: 2; object-fit: contain; position: absolute;">
+            <img id="tertiary-image1" class="render-image" src="" alt="Render de Terciario 1" style="max-width: 48px; transform: translate(-50%, -50%); top: 22%; right: 6%; display: none; z-index: 2; object-fit: contain; position: absolute;">
+    
+        </div>
+        <div class="polygon2">
+            <img id="render-image2" class="render-image" src="C:\Users\PC\Pictures\Bonus Top8\Super Smash Bros. Ultimate Renders\Cloud\Cloud (2).png" alt="Render de Main 2" style="height: 180%; transform: translate(-50%, -50%); top: 75%; left: 50%; display: block; z-index: 2; object-fit: contain; position: absolute; filter: drop-shadow(16px 8px 0.5px rgba(38, 62, 218, 0.75));">
+            <img id="stock-image2" src="" alt="stock-image2" style="max-width: 32px; transform: translate(-50%, -50%); top: 11%; right: 3%; display: none; z-index: 2; object-fit: contain; position: absolute;">
+            <img id="tertiary-image2" src="" alt="tertiary-image2" style="max-width: 32px; transform: translate(-50%, -50%); top: 23.75%; right: 7.5%; display: none; z-index: 2; object-fit: contain; position: absolute;">
+        </div>
+        <div class="polygon3">
+            <img id="render-image3" class="render-image" src="" alt="Render de Main 3" style="height: 180%; transform: translate(-50%, -50%); top: 75%; left: 50%; display: none; z-index: 2; object-fit: contain; position: absolute; filter: drop-shadow(16px 8px 0.5px rgba(38, 62, 218, 0.75));">
+            <img id="stock-image3" src="" alt="stock-image3" style="max-width: 32px; transform: translate(-50%, -50%); top: 11%; right: 16%; display: none; z-index: 2; object-fit: contain; position: absolute;">
+            <img id="tertiary-image3" src="" alt="tertiary-image3" style="max-width: 32px; transform: translate(-50%, -50%); top: 24.75%; right: 12.75%; display: none; z-index: 2; object-fit: contain; position: absolute;">
+        </div>
+        <div class="polygon4">
+            <img id="render-image4" class="render-image" src="" alt="Render de Main 4" style="height: 190%; transform: translate(-50%, -50%); top: 95%; left: 60%; display: none; z-index: 2; object-fit: contain; position: absolute; filter: drop-shadow(16px 8px 0.5px rgba(38, 62, 218, 0.75));">
+            <img id="stock-image4" src="" alt="stock-image4" style="max-width: 32px; transform: translate(-50%, -50%); top: 13%; right: -2%; display: none; z-index: 2; object-fit: contain; position: absolute;">
+            <img id="tertiary-image4" src="" alt="tertiary-image4" style="max-width: 32px; transform: translate(-50%, -50%); top: 33%; right: -2%; display: none; z-index: 2; object-fit: contain; position: absolute;">
+        </div>
+        <div class="polygon5">
+            <img id="render-image5" class="render-image" src="" alt="Render de Main 5" style="height: 330%; transform: translate(-50%, -50%); top: 137%; left: 41%; display: none; z-index: 2; object-fit: contain; position: absolute; filter: drop-shadow(16px 8px 0.5px rgba(38, 62, 218, 0.75));">
+            <img id="stock-image5" src="" alt="stock-image5" style="max-width: 32px; transform: translate(-50%, -50%); top: 21%; left: 21%; display: none; z-index: 2; object-fit: contain; position: absolute;">
+            <img id="tertiary-image5" src="" alt="tertiary-image5" style="max-width: 32px; transform: translate(-50%, -50%); top: 42%; left: 17.5%; display: none; z-index: 2; object-fit: contain; position: absolute;">
+        </div>
+        <div class="polygon6">
+            <img id="render-image6" class="render-image" src="" alt="Render de Main 6" style="height: 170%; transform: translate(-50%, -50%); top: 80%; left: 85%; display: none; z-index: 2; object-fit: contain; position: absolute; filter: drop-shadow(16px 8px 0.5px rgba(38, 62, 218, 0.75));">
+            <img id="stock-image6" src="" alt="stock-image6" style="max-width: 32px; transform: translate(-50%, -50%); top: 25.5%; left: 16%; display: none; z-index: 2; object-fit: contain; position: absolute;">
+            <img id="tertiary-image6" src="" alt="tertiary-image6" style="max-width: 32px; transform: translate(-50%, -50%); top: 37.5%; left: 25%; display: none; z-index: 2; object-fit: contain; position: absolute;">
+        </div>
+        <div class="polygon7">
+            <img id="render-image7" class="render-image" src="" alt="Render de Main 7" style="height: 200%; transform: translate(-50%, -50%); top: 105%; left: 38%; display: none; z-index: 2; object-fit: contain; position: absolute; filter: drop-shadow(16px 8px 0.5px rgba(38, 62, 218, 0.75));">
+            <img id="stock-image7" src="" alt="stock-image7" style="max-width: 32px; transform: translate(-50%, -50%); top: 13%; right: 4%; display: none; z-index: 2; object-fit: contain; position: absolute;">
+            <img id="tertiary-image7" src="" alt="tertiary-image7" style="max-width: 32px; transform: translate(-50%, -50%); top: 27%; right: 11.5%; display: none; z-index: 2; object-fit: contain; position: absolute;">
+        </div>
+        <div class="polygon8">
+            <img id="render-image8" class="render-image" src="" alt="Render de Main 8" style="height: 200%; transform: translate(-50%, -50%); top: 100%; left: 55%; display: none; z-index: 2; object-fit: contain; position: absolute; filter: drop-shadow(16px 8px 0.5px rgba(38, 62, 218, 0.75));">
+            <img id="stock-image8" src="" alt="stock-image8" style="max-width: 32px; transform: translate(-50%, -50%); top: 11%; right: -2%; display: none; z-index: 2; object-fit: contain; position: absolute;">
+            <img id="tertiary-image8" src="" alt="tertiary-image8" style="max-width: 32px; transform: translate(-50%, -50%); top: 25%; right: -2%; display: none; z-index: 2; object-fit: contain; position: absolute;">
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='scripts/script.js') }}"></script>
+
+</body>
+</html>

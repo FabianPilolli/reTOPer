@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selecciona tus Mains, Secundarios y Terciarios</title>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+        .selector-container {
+            margin-bottom: 20px;
+            border: 1px solid #eee;
+            padding: 10px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 10px;
+        }
+        .group-selector {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .render-container {
+            margin-top: 10px;
+        }
+        .render-image {
+            max-width: 150px;
+            height: auto;
+            border: 1px solid #ccc;
+        }
+        #mostrar-imagenes-container {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Selecciona tus Mains, Secundarios y Terciarios</h1>
+
+    <div id="mostrar-imagenes-container">
+        <button type="button" onclick="mostrarImagenes()">Mostrar Imágenes</button>
+    </div>
+
+    <div class="selector-container">
+        <!-- Grupo 1 -->
+        <div class="group-selector">
+            <h2>Grupo 1</h2>
+
+            <!-- Main Selector -->
+            <div class="main-selector">
+                <h3>Main 1</h3>
+                <label for="personaje1">Personaje:</label>
+                <select id="personaje1" name="personaje1">
+                    <option value="">-- Selecciona --</option>
+                    {% for personaje in personajes_renders %}
+                        <option value="{{ personaje }}" {% if selected_personajes['selected_personaje1'] == personaje %}selected{% endif %}>{{ personaje }}</option>
+                    {% endfor %}
+                </select>
+
+                <label for="color1">Color:</label>
+                <select id="color1" name="color1" data-selected="{% if selected_colores['selected_color1'] %}{{ selected_colores['selected_color1'] }}{% endif %}">
+                    <option value="">-- Selecciona un color --</option>
+                    {% if selected_personajes['selected_personaje1'] %}
+                        {% for color in personajes_con_colores_renders[selected_personajes['selected_personaje1']] %}
+                            <option value="{{ color }}" {% if selected_colores['selected_color1'] == color %}selected{% endif %}>{{ color }}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+
+                <div class="render-container">
+                    <img id="render-image1" class="render-image" src="" alt="Render de Main 1">
+                    <p id="selected-personaje1">selected_personaje1 = </p>
+                    <p id="selected-color1">selected_color1 = </p>
+                    <p id="render-path1">render_path1 = </p>
+                </div>
+            </div>
+
+            <!-- Secondary Selector -->
+            <div class="secondary-selector">
+                <h3>Secundario 1</h3>
+                <label for="secundario_personaje1">Personaje:</label>
+                <select id="secundario_personaje1" name="secundario_personaje1">
+                    <option value="">-- Selecciona --</option>
+                    {% for personaje in personajes_stocks %}
+                        <option value="{{ personaje }}" {% if selected_stocks_personajes['selected_stock_personaje1'] == personaje %}selected{% endif %}>{{ personaje }}</option>
+                    {% endfor %}
+                </select>
+
+                <label for="secundario_color1">Color:</label>
+                <select id="secundario_color1" name="secundario_color1" data-selected="{% if selected_stocks_colores['selected_stock_color1'] %}{{ selected_stocks_colores['selected_stock_color1'] }}{% endif %}">
+                    <option value="">-- Selecciona un color --</option>
+                    {% if selected_stocks_personajes['selected_stock_personaje1'] %}
+                        {% for color in personajes_con_colores_stocks[selected_stocks_personajes['selected_stock_personaje1']] %}
+                            <option value="{{ color }}" {% if selected_stocks_colores['selected_stock_color1'] == color %}selected{% endif %}>{{ color }}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+
+                <div class="render-container">
+                    <img id="stock-image1" class="render-image" src="" alt="Stock de Secundario 1">
+                    <p id="selected-stock-personaje1">selected_stock_personaje1 = </p>
+                    <p id="selected-stock-color1">selected_stock_color1 = </p>
+                    <p id="stock-path1">stock_path1 = </p>
+                </div>
+            </div>
+
+            <!-- Tertiary Selector -->
+            <div class="tertiary-selector">
+                <h3>Terciario 1</h3>
+                <label for="terciario_personaje1">Personaje:</label>
+                <select id="terciario_personaje1" name="terciario_personaje1">
+                    <option value="">-- Selecciona --</option>
+                    {% for personaje in personajes_stocks %}
+                        <option value="{{ personaje }}" {% if selected_tertiary_personajes['selected_tertiary_personaje1'] == personaje %}selected{% endif %}>{{ personaje }}</option>
+                    {% endfor %}
+                </select>
+
+                <label for="terciario_color1">Color:</label>
+                <select id="terciario_color1" name="terciario_color1" data-selected="{% if selected_tertiary_colores['selected_tertiary_color1'] %}{{ selected_tertiary_colores['selected_tertiary_color1'] }}{% endif %}">
+                    <option value="">-- Selecciona un color --</option>
+                    {% if selected_tertiary_personajes['selected_tertiary_personaje1'] %}
+                        {% for color in personajes_con_colores_stocks[selected_tertiary_personajes['selected_tertiary_personaje1']] %}
+                            <option value="{{ color }}" {% if selected_tertiary_colores['selected_tertiary_color1'] == color %}selected{% endif %}>{{ color }}</option>
+                        {% endfor %}
+                    {% endif %}
+                </select>
+
+                <div class="render-container">
+                    <img id="tertiary-image1" class="render-image" src="" alt="Render de Terciario 1">
+                    <p id="selected-tertiary-personaje1">selected_tertiary_personaje1 = </p>
+                    <p id="selected-tertiary-color1">selected_tertiary_color1 = </p>
+                    <p id="tertiary-path1">tertiary_path1 = </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Repite este bloque para los grupos 2 al 8 -->
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            for (let i = 1; i <= 8; i++) {
+                const personajeSelectMain = document.getElementById(`personaje${i}`);
+                personajeSelectMain.addEventListener('change', function() {
+                    actualizarOpcionesColor('main', i);
+                });
+
+                const personajeSelectSecondary = document.getElementById(`secundario_personaje${i}`);
+                personajeSelectSecondary.addEventListener('change', function() {
+                    actualizarOpcionesColor('secondary', i);
+                });
+
+                const personajeSelectTertiary = document.getElementById(`terciario_personaje${i}`);
+                personajeSelectTertiary.addEventListener('change', function() {
+                    actualizarOpcionesColor('tertiary', i);
+                });
+            }
+            // Inicializar la preselección del primer color al cargar la página
+            for (let i = 1; i <= 8; i++) {
+                if (document.getElementById(`personaje${i}`).value) {
+                    actualizarOpcionesColor('main', i, true); // El true indica la inicialización
+                }
+                if (document.getElementById(`secundario_personaje${i}`).value) {
+                    actualizarOpcionesColor('secondary', i, true); // El true indica la inicialización
+                }
+                if (document.getElementById(`terciario_personaje${i}`).value) {
+                    actualizarOpcionesColor('tertiary', i, true); // El true indica la inicialización
+                }
+            }
+        });
+
+        function actualizarOpcionesColor(type, index, isInitialLoad = false) {
+            let personajeSelectId = `${type === 'main' ? 'personaje' : type === 'secondary' ? 'secundario_personaje' : 'terciario_personaje'}${index}`;
+            let colorSelectId = `${type === 'main' ? 'color' : type === 'secondary' ? 'secundario_color' : 'terciario_color'}${index}`;
+            const personajeSelect = document.getElementById(personajeSelectId);
+            const colorSelect = document.getElementById(colorSelectId);
+            const personajeSeleccionado = personajeSelect.value;
+            const endpoint = type === 'main' ? `/get_colores/${personajeSeleccionado}` : type === 'secondary' ? `/get_colores_stock/${personajeSeleccionado}` : `/get_colores_stock/${personajeSeleccionado}`;
+
+            colorSelect.disabled = true;
+            colorSelect.innerHTML = '<option value="">-- Selecciona un color --</option>';
+
+            if (personajeSeleccionado) {
+                fetch(endpoint)
+                    .then(response => response.json())
+                    .then(colores => {
+                        if (colores && colores.length > 0) {
+                            colorSelect.disabled = false;
+                            colorSelect.innerHTML = '<option value="">-- Selecciona un color --</option>'; // Limpiar opciones previas
+                            colores.forEach((color, idx) => {
+                                const option = document.createElement('option');
+                                option.value = color;
+                                option.textContent = color;
+                                colorSelect.appendChild(option);
+                                if (idx === 0 && !colorSelect.value) { // Preseleccionar el primer color si no hay valor
+                                    colorSelect.value = color;
+                                    const personaje = document.getElementById(personajeSelectId).value;
+                                    if (type === 'main') {
+                                        actualizarRender(index, personaje, color);
+                                    } else if (type === 'secondary') {
+                                        actualizarStock(index, personaje, color);
+                                    } else {
+                                        actualizarTertiary(index, personaje, color);
+                                    }
+                                }
+                            });
+                            // Si ya había un color seleccionado (por carga inicial), mantenerlo
+                            if (isInitialLoad && document.getElementById(colorSelectId).dataset.selected) {
+                                colorSelect.value = document.getElementById(colorSelectId).dataset.selected;
+                            }
+                        }
+                    });
+            } else {
+                // Resetear el selector de color si no hay personaje seleccionado
+                const personajeInfoId = `selected-${type === 'main' ? '' : type === 'secondary' ? 'stock-' : 'tertiary-'}personaje${index}`;
+                const colorInfoId = `selected-${type === 'main' ? '' : type === 'secondary' ? 'stock-' : 'tertiary-'}color${index}`;
+                const pathInfoId = `${type === 'main' ? 'render' : type === 'secondary' ? 'stock' : 'tertiary'}-path${index}`;
+                document.getElementById(personajeInfoId).textContent = `${personajeInfoId} = `;
+                document.getElementById(colorInfoId).textContent = `${colorInfoId} = `;
+                document.getElementById(pathInfoId).textContent = `${pathInfoId} = `;
+                document.getElementById(`${type === 'main' ? 'render' : type === 'secondary' ? 'stock' : 'tertiary'}-image${index}`).src = "";
+            }
+        }
+
+        function mostrarImagenes() {
+            for (let i = 1; i <= 8; i++) {
+                const personajeMain = document.getElementById(`personaje${i}`).value;
+                const colorMain = document.getElementById(`color${i}`).value;
+                actualizarRender(i, personajeMain, colorMain);
+
+                const personajeSecondary = document.getElementById(`secundario_personaje${i}`).value;
+                const colorSecondary = document.getElementById(`secundario_color${i}`).value;
+                actualizarStock(i, personajeSecondary, colorSecondary);
+
+                const personajeTertiary = document.getElementById(`terciario_personaje${i}`).value;
+                const colorTertiary = document.getElementById(`terciario_color${i}`).value;
+                actualizarTertiary(i, personajeTertiary, colorTertiary);
+            }
+        }
+
+        function actualizarRender(numero, personaje, color) {
+            let renderImageId = `render-image${numero}`;
+            let personajeInfoId = `selected-personaje${numero}`;
+            let colorInfoId = `selected-color${numero}`;
+            let renderPathInfoId = `render-path${numero}`;
+
+            const renderImage = document.getElementById(renderImageId);
+            const personajeInfo = document.getElementById(personajeInfoId);
+            const colorInfo = document.getElementById(colorInfoId);
+            const renderPathInfo = document.getElementById(renderPathInfoId);
+
+            if (personaje && color) {
+                fetch(`/get_render/${personaje}/${color}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.render_path) {
+                            renderImage.src = data.render_path;
+                            renderPathInfo.textContent = `render_path${numero} = ${data.render_path}`;
+                        } else {
+                            renderImage.src = "";
+                            renderPathInfo.textContent = `render_path${numero} = `;
+                        }
+                        personajeInfo.textContent = `selected_personaje${numero} = ${personaje}`;
+                        colorInfo.textContent = `selected_color${numero} = ${color}`;
+                    });
+            } else {
+                renderImage.src = "";
+                renderPathInfo.textContent = `render_path${numero} = Por favor, selecciona personaje y color.`;
+                personajeInfo.textContent = `selected-personaje${numero} = `;
+                colorInfo.textContent = `selected-color${numero} = `;
+            }
+        }
+
+        function actualizarStock(numero, personaje, color) {
+            let stockImageId = `stock-image${numero}`;
+            let personajeInfoId = `selected-stock-personaje${numero}`;
+            let colorInfoId = `selected-stock-color${numero}`;
+            let stockPathInfoId = `stock-path${numero}`;
+
+            const stockImage = document.getElementById(stockImageId);
+            const personajeInfo = document.getElementById(personajeInfoId);
+            const colorInfo = document.getElementById(colorInfoId);
+            const stockPathInfo = document.getElementById(stockPathInfoId);
+
+            if (personaje && color) {
+                fetch(`/get_stock/${personaje}/${color}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.stock_path) {
+                            stockImage.src = data.stock_path;
+                            stockPathInfo.textContent = `stock_path${numero} = ${data.stock_path}`;
+                        } else {
+                            stockImage.src = "";
+                            stockPathInfo.textContent = `stock_path${numero} = `;
+                        }
+                        personajeInfo.textContent = `selected-stock-personaje${numero} = ${personaje}`;
+                        colorInfo.textContent = `selected-stock-color${numero} = ${color}`;
+                    });
+            } else {
+                stockImage.src = "";
+                stockPathInfo.textContent = `stock_path${numero} = Por favor, selecciona personaje y color.`;
+                personajeInfo.textContent = `selected-stock-personaje${numero} = `;
+                colorInfo.textContent = `selected-stock-color${numero} = `;
+            }
+        }
+
+        function actualizarTertiary(numero, personaje, color) {
+            let tertiaryImageId = `tertiary-image${numero}`;
+            let personajeInfoId = `selected-tertiary-personaje${numero}`;
+            let colorInfoId = `selected-tertiary-color${numero}`;
+            let tertiaryPathInfoId = `tertiary-path${numero}`;
+
+            const tertiaryImage = document.getElementById(tertiaryImageId);
+            const personajeInfo = document.getElementById(personajeInfoId);
+            const colorInfo = document.getElementById(colorInfoId);
+            const tertiaryPathInfo = document.getElementById(tertiaryPathInfoId);
+
+            if (personaje && color) {
+                fetch(`/get_stock/${personaje}/${color}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.stock_path) {
+                            tertiaryImage.src = data.stock_path;
+                            tertiaryPathInfo.textContent = `tertiary_path${numero} = ${data.stock_path}`;
+                        } else {
+                            tertiaryImage.src = "";
+                            tertiaryPathInfo.textContent = `tertiary_path${numero} = `;
+                        }
+                        personajeInfo.textContent = `selected-tertiary-personaje${numero} = ${personaje}`;
+                        colorInfo.textContent = `selected-tertiary-color${numero} = ${color}`;
+                    });
+            } else {
+                tertiaryImage.src = "";
+                tertiaryPathInfo.textContent = `tertiary_path${numero} = Por favor, selecciona personaje y color.`;
+                personajeInfo.textContent = `selected-tertiary-personaje${numero} = `;
+                colorInfo.textContent = `selected-tertiary-color${numero} = `;
+            }
+        }
+    </script>
+</body>
+</html>
