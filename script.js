@@ -114,4 +114,23 @@ for (let i = 1; i <= 8; i++) {
     handleImageUpload(tertiaryInput, polygonTertiary);
 }
 
-// Puedes añadir más lógica JavaScript aquí si necesitas manejar otros elementos o interacciones.
+document.getElementById('player-name-color-input').addEventListener('input', function(e) {
+    const color = e.target.value;
+    document.querySelectorAll('.player-name--container').forEach(element => {
+        element.style.backgroundColor = color;
+    });
+    // Convertir el color hexadecimal a rgba para la sombra
+    const rgbaColor = hexToRgba(color, 0.75); // 0.75 es la opacidad
+    document.querySelectorAll('.polygon__main1').forEach(element => {
+        element.style.filter = `drop-shadow(2vw calc(2vw * 9/16) 0.5px ${rgbaColor})`;
+    });
+});
+
+// Función para convertir hexadecimal a rgba
+function hexToRgba(hex, opacity) {
+    hex = hex.replace("#", "");
+    const r = parseInt(hex.substring(0, 2), 16);
+    const g = parseInt(hex.substring(2, 4), 16);
+    const b = parseInt(hex.substring(4, 6), 16);
+    return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+}

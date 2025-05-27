@@ -226,12 +226,26 @@
 
 .banner {
     display: flex;
-    background-image: url(Ref.png);
+    background-image: url(Bg.png);
     background-size: cover;
     width: 98vw;
     height: calc(98vw * 9/16); /* Mantiene la relación de aspecto 16:9 */
     position: relative; /* ¡IMPORTANTE! Contexto de posicionamiento */
     overflow: hidden; /* Para asegurar que nada del polígono se salga del banner */
+}
+
+.banner__layout {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Para que no interfiera con los elementos interactivos debajo */
+    z-index: 10;
+}
+
+#banner__layout--text {
+    display: block;
 }
 
 .banner__top {
@@ -245,21 +259,18 @@
     color: white;
     display: flex;
     font-size: 2vw;
-    background-color: rgba(0, 0, 0, 0.25);
 }
 
 .banner__top-left {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.25);
 }
 .banner__top-right {
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.25);
 }
 
 .top--sponsor {
@@ -268,7 +279,6 @@
     align-content: center;
     max-height: 100%;
     margin-right: 10px;
-    background-color: rgba(0, 0, 0, 0.25);
 }
 
 .banner__bottom {
@@ -282,7 +292,6 @@
     color: white;
     font-size: 2vw;
     display: flex;
-    background-color: rgba(0, 0, 0, 0.25);
 }
 
 .banner__bottom-left {
@@ -290,7 +299,6 @@
     height: 100%;
     display: flex;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.75);
 }
 .banner__bottom-right {
     height: 100%;
@@ -298,7 +306,6 @@
     justify-content:end;
     align-items: center;
     margin-right: 20%;
-    background-color: rgba(0, 0, 0, 0.75);
 }
 
 .bottom--sponsor {
@@ -307,14 +314,13 @@
     align-content: right;
     max-height: 100%;
     margin-right: 10px;
-    background-color: rgba(0, 0, 0, 0.25);
 }
 
 .banner__polygon {
     display: flex; /* Sigue siendo flex para alinear su contenido (la imagen) */
     position: absolute;
     justify-content: center;
-    background-color: rgba(0, 0, 0, 0.75);
+    background-color: rgba(0,0,0, 0.75);
     overflow: hidden;
     z-index: 2;
 }
@@ -327,7 +333,7 @@
     display: block;
     object-fit: contain;
     position: absolute;
-    filter: drop-shadow(20px 10px 0.5px rgba(38, 62, 218, 0.75));
+    filter: drop-shadow(2vw calc(2vw * 9/16) 0.5px rgba(38, 62, 218, 0.75));
 }
 
 .polygon__secondary, .polygon__tertiary {
@@ -357,7 +363,7 @@
     align-items: center;
     color: white;
     font-size: 2vw;
-    background-color: rgba(0, 0, 0, 0.75);
+    background-color: #263bd9;
     overflow: hidden;
     z-index: 5;
 }
