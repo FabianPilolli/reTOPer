@@ -1,77 +1,50 @@
 // script.js
 
-// --- Lógica para la descarga del banner ---
-
-const downloadButton = document.getElementById('download-banner');
-
-if (downloadButton) {
-    console.log("Botón de descarga encontrado."); // Mensaje de éxito si el botón se encuentra
-    downloadButton.addEventListener('click', () => {
-        console.log("Click en el botón de descarga. Intentando capturar el banner..."); // Confirmación del click
-
-        // Introduce un pequeño retraso para asegurar que el DOM y el CSS estén completamente renderizados
-        // antes de que html2canvas tome la instantánea.
-        setTimeout(() => {
-            html2canvas(document.querySelector('.banner'), {
-                useCORS: true, // Crucial para permitir la carga de imágenes de diferentes orígenes (incluyendo imágenes locales cuando se sirve con Live Server/GitHub Pages)
-                allowTaint: true, // Permite que el lienzo se "ensucie" para renderizar, aunque `useCORS` es preferible.
-                                  // Puede ser útil como fallback o para depuración.
-                ignoreElements: (element) => { // Ignora elementos que no quieres en la captura (ej. los inputs del controlador)
-                    return element.classList.contains('controller');
-                }
-            }).then(canvas => {
-                console.log("Banner capturado en un canvas. Generando enlace de descarga..."); // Confirmación de captura
-                const link = document.createElement('a');
-                link.download = 'retoper_banner.png'; // Nombre del archivo a descargar
-                link.href = canvas.toDataURL('image/png'); // Convierte el canvas a imagen PNG en formato Data URL
-                link.click(); // Simula el click para iniciar la descarga
-                console.log("Descarga iniciada."); // Mensaje de descarga
-            }).catch(error => {
-                // Captura y registra cualquier error que ocurra durante la generación o descarga del banner
-                console.error("Error al generar o descargar el banner:", error);
-            });
-        }, 200); // Retraso de 200 milisegundos. Puedes ajustar este valor (ej. 300, 500) si es necesario.
-    });
-} else {
-    console.warn("El botón con ID 'download-banner' no se encontró en el DOM."); // Advertencia si el botón no se encuentra
-}
-
-
-// --- Lógica para la actualización de texto e imágenes en el banner ---
-
-// 1. Obtener referencias a los elementos de entrada (controller) y de visualización (banner)
+// --- Obtener referencias a los elementos de entrada (controller) y de visualización (banner) ---
 
 // Top texts
 const topLeftTextInput = document.getElementById('top-left-text-input');
-const topLeftBannerText = document.getElementById('top--left-text'); // ID en el banner para el texto superior izquierdo
+const topLeftBannerText = document.getElementById('top--left-text');
 
 const topRightTextInput = document.getElementById('top-right-text-input');
-const topRightBannerText = document.getElementById('top--right-text'); // CORREGIDO: ID en el banner para el texto superior derecho
+const topRightBannerText = document.getElementById('top--right-text');
 
 // Bottom texts
 const bottomLeftTextInput = document.getElementById('bottom-left-text-input');
-const bottomLeftBannerText = document.getElementById('bottom--left-text'); // ID en el banner para el texto inferior izquierdo
+const bottomLeftBannerText = document.getElementById('bottom--left-text');
 
 const bottomRightTextInput = document.getElementById('bottom-right-text-input');
-const bottomRightBannerText = document.getElementById('bottom--right-text'); // ID en el banner para el texto inferior derecho
+const bottomRightBannerText = document.getElementById('bottom--right-text');
 
 
-// 2. Funciones para manejar la actualización de contenido
+// --- Funciones genéricas para manejar la actualización de contenido ---
 
-// Función genérica para manejar la actualización de texto desde un input a un elemento de texto en el banner
+/**
+ * Enlaza un input de texto con un elemento de texto en el banner, actualizando su contenido en tiempo real.
+ * @param {HTMLInputElement} inputElement El elemento <input type="text"> del controlador.
+ * @param {HTMLElement} bannerTextElement El elemento HTML (ej. <div>, <p>) en el banner que mostrará el texto.
+ */
 const handleTextInputUpdate = (inputElement, bannerTextElement) => {
-    if (inputElement && bannerTextElement) { // Verificación para asegurar que ambos elementos existan
+    if (inputElement && bannerTextElement) {
         inputElement.addEventListener('input', (event) => {
             bannerTextElement.textContent = event.target.value;
         });
+        // console.log(`Enlace para ${inputElement.id} establecido exitosamente.`); // Descomentar para depuración
     } else {
-        console.warn(`No se pudo enlazar input '${inputElement ? inputElement.id : 'N/A'}' con banner text '${bannerTextElement ? bannerTextElement.id : 'N/A'}'`);
+        console.warn(`[ERROR - TEXT_UPDATE]: No se pudo enlazar.
+        Input ID: '${inputElement ? inputElement.id : 'NO ENCONTRADO'}'
+        Banner Text ID: '${bannerTextElement ? bannerTextElement.id : 'NO ENCONTRADO'}'
+        Asegúrate de que los IDs son correctos en tu HTML.`);
     }
 };
 
-// Función genérica para manejar la carga de imágenes desde un input de tipo file a una etiqueta <img> en el banner
+/**
+ * Enlaza un input de tipo file con una etiqueta <img> en el banner, mostrando la imagen seleccionada.
+ * @param {HTMLInputElement} inputElement El elemento <input type="file"> del controlador.
+ * @param {HTMLImageElement} imgElement El elemento <img> en el banner que mostrará la imagen.
+ */
 const handleImageUpload = (inputElement, imgElement) => {
-    if (inputElement && imgElement) { // Verificación para asegurar que ambos elementos existan
+    if (inputElement && imgElement) {
         inputElement.addEventListener('change', (event) => {
             const file = event.target.files[0]; // Obtener el primer archivo seleccionado
             if (file) {
@@ -80,23 +53,29 @@ const handleImageUpload = (inputElement, imgElement) => {
                     imgElement.src = e.target.result; // Establecer el src de la imagen como la Data URL del archivo
                 };
                 reader.readAsDataURL(file); // Leer el archivo como una Data URL
+                // console.log(`Imagen para ${imgElement.id} cargada exitosamente.`); // Descomentar para depuración
             }
         });
     } else {
-        console.warn(`No se pudo enlazar input file '${inputElement ? inputElement.id : 'N/A'}' con img '${imgElement ? imgElement.id : 'N/A'}'`);
+        console.warn(`[ERROR - IMAGE_UPLOAD]: No se pudo enlazar.
+        Input File ID: '${inputElement ? inputElement.id : 'NO ENCONTRADO'}'
+        Image Element ID: '${imgElement ? imgElement.id : 'NO ENCONTRADO'}'
+        Asegúrate de que los IDs son correctos en tu HTML.`);
     }
 };
 
 
-// 3. Enlazar los inputs del controlador con los elementos del banner
+// --- Enlazar los inputs del controlador con los elementos correspondientes en el banner ---
 
-// Enlazar inputs de texto
+// Enlazar inputs de texto principales (superior e inferior)
 handleTextInputUpdate(topLeftTextInput, topLeftBannerText);
 handleTextInputUpdate(topRightTextInput, topRightBannerText);
 handleTextInputUpdate(bottomLeftTextInput, bottomLeftBannerText);
 handleTextInputUpdate(bottomRightTextInput, bottomRightBannerText);
 
+
 // Enlazar inputs de patrocinadores (imágenes)
+// Se asume que tienes 8 inputs de patrocinador y 8 etiquetas <img> correspondientes en el banner
 handleImageUpload(document.getElementById('sponsor1-input'), document.getElementById('sponsor1'));
 handleImageUpload(document.getElementById('sponsor2-input'), document.getElementById('sponsor2'));
 handleImageUpload(document.getElementById('sponsor3-input'), document.getElementById('sponsor3'));
@@ -107,21 +86,22 @@ handleImageUpload(document.getElementById('sponsor7-input'), document.getElement
 handleImageUpload(document.getElementById('sponsor8-input'), document.getElementById('sponsor8'));
 
 
-// Enlazar inputs de las tarjetas de jugadores (texto e imágenes)
+// Enlazar inputs de las tarjetas de jugadores (texto: prefix y tag; imágenes: main, secondary, tertiary)
+// Este bucle manejará hasta 8 jugadores.
 for (let i = 1; i <= 8; i++) {
-    // Inputs del controlador
+    // Inputs del controlador para el jugador actual (i)
     const prefixInput = document.getElementById(`prefix${i}-input`);
     const tagInput = document.getElementById(`tag${i}-input`);
-    const mainInput = document.getElementById(`main${i}-input`);
-    const secondaryInput = document.getElementById(`secondary${i}-input`);
-    const tertiaryInput = document.getElementById(`tertiary${i}-input`);
+    const mainInput = document.getElementById(`main${i}-input`); // Input para la imagen principal
+    const secondaryInput = document.getElementById(`secondary${i}-input`); // Input para la imagen secundaria
+    const tertiaryInput = document.getElementById(`tertiary${i}-input`); // Input para la imagen terciaria
 
-    // Elementos de visualización en el banner
+    // Elementos de visualización en el banner para el jugador actual (i)
     const playerPrefix = document.getElementById(`player${i}-prefix`);
     const playerTag = document.getElementById(`player${i}-tag`);
-    const polygonMain = document.getElementById(`polygon${i}__main1`);
-    const polygonSecondary = document.getElementById(`polygon${i}__secondary`);
-    const polygonTertiary = document.getElementById(`polygon${i}__tertiary`);
+    const polygonMain = document.getElementById(`polygon${i}__main1`); // <img> para la imagen principal
+    const polygonSecondary = document.getElementById(`polygon${i}__secondary`); // <img> para la imagen secundaria
+    const polygonTertiary = document.getElementById(`polygon${i}__tertiary`); // <img> para la imagen terciaria
 
     // Enlazar texto de prefijo
     handleTextInputUpdate(prefixInput, playerPrefix);
@@ -134,4 +114,4 @@ for (let i = 1; i <= 8; i++) {
     handleImageUpload(tertiaryInput, polygonTertiary);
 }
 
-// Puedes añadir más lógica aquí si necesitas manejar otros elementos o interacciones.
+// Puedes añadir más lógica JavaScript aquí si necesitas manejar otros elementos o interacciones.
