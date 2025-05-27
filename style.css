@@ -248,6 +248,12 @@
     display: block;
 }
 
+.banner__top, .banner__bottom, .player-name--container {
+    font-weight: bold;
+    font-family: sans-serif;
+    text-shadow: 0.25vw 0.25vw 0.5px #000;
+}
+
 .banner__top {
     position: absolute;
     top: 5%;
