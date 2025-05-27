@@ -119,6 +119,9 @@ document.getElementById('player-name-color-input').addEventListener('input', fun
     document.querySelectorAll('.player-name--container').forEach(element => {
         element.style.backgroundColor = color;
     });
+    document.querySelectorAll('.playercard').forEach(element => {
+        element.style.backgroundColor = color;
+    });
     // Convertir el color hexadecimal a rgba para la sombra
     const rgbaColor = hexToRgba(color, 0.75); // 0.75 es la opacidad
     document.querySelectorAll('.polygon__main1').forEach(element => {
@@ -134,3 +137,61 @@ function hexToRgba(hex, opacity) {
     const b = parseInt(hex.substring(4, 6), 16);
     return `rgba(${r}, ${g}, ${b}, ${opacity})`;
 }
+
+document.getElementById('banner-background-input').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.querySelector('.banner').style.backgroundImage = `url(${e.target.result})`;
+        }
+        reader.readAsDataURL(file);
+    }
+});
+
+document.getElementById('banner-background-image-toggle').addEventListener('change', function() {
+    const banner = document.querySelector('.banner');
+    const backgroundImage = document.getElementById('banner-background-input');
+    if (this.checked) {
+        banner.style.backgroundImage = `url(${backgroundImage.value})`;
+    } else {
+        banner.style.backgroundImage = 'none';
+    }
+});
+
+document.getElementById('banner-background-color-input').addEventListener('input', function(e) {
+    const color = e.target.value;
+    document.querySelector('.banner').style.backgroundColor = color;
+});
+
+function autoResizeInput(input) {
+    input.style.width = '80px'; // min-width
+    const tmp = document.createElement('span');
+    tmp.style.visibility = 'hidden';
+    tmp.style.position = 'absolute';
+    tmp.style.font = window.getComputedStyle(input).font;
+    tmp.textContent = input.value || input.placeholder;
+    document.body.appendChild(tmp);
+    let newWidth = tmp.offsetWidth + 20;
+    newWidth = Math.max(80, Math.min(300, newWidth));
+    input.style.width = newWidth + 'px';
+    document.body.removeChild(tmp);
+}
+
+// Selecciona todos los inputs de texto de las esquinas
+const cornerInputs = [
+    document.getElementById('top-left-text-input'),
+    document.getElementById('top-right-text-input'),
+    document.getElementById('bottom-left-text-input'),
+    document.getElementById('bottom-right-text-input')
+];
+
+cornerInputs.forEach(input => {
+    if (input) {
+        input.addEventListener('input', function() {
+            autoResizeInput(input);
+        });
+        // Inicializar tamaño al cargar
+        autoResizeInput(input);
+    }
+});

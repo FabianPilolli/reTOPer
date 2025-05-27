@@ -13,16 +13,18 @@
     <div class="controller">
         <!-- TOP TEXT AND SPONSORS -->
         <div class="controller__top-left">
-            <input type="text" id="top-left-text-input" placeholder="Top Left">
+            <input type="text" id="top-left-text-input" placeholder="Top Left" maxlength="60"
+            title="Tournamente name - Event name&#10;Example: Smashy Weekends 20 - Ultimate Singles">
         </div>
         <div class="controller__top-sponsors">
-            <input type="file" class="sponsor" id="sponsor1-input" value="sponsor" accept="image/*">
+            <input type="file" class="sponsor" id="sponsor1-input" accept="image/*">
             <input type="file" class="sponsor" id="sponsor2-input" accept="image/*">
             <input type="file" class="sponsor" id="sponsor3-input" accept="image/*">
             <input type="file" class="sponsor" id="sponsor4-input" accept="image/*">
         </div>
         <div class="controller__top-right">
-            <input type="text" id="top-right-text-input" placeholder="TopRight">
+            <input type="text" id="top-right-text-input" placeholder="TopRight" maxlength="60"
+            title="Startgg Short Slug&#10;Example: start.gg/smashyweekends20">
         </div>
         <div class="controller__playercards">
             <div class="playercard" id="playercard1">
@@ -85,7 +87,8 @@
         </div>
         <!-- BOTTOM TEXT AND SPONSORS -->
         <div class="controller__bottom-left">
-            <input type="text" id="bottom-left-text-input" placeholder="Bottom Left">
+            <input type="text" id="bottom-left-text-input" placeholder="Bottom Left" maxlength="60"
+            title="Event date - Event Location - Number of event partiicpants&#10;Example: 24/05/25 - Checkpoint Game Center, Lechería - 19 Participants">
         </div>
         <div class="controller__bottom-sponsors">
             <input type="file" class="sponsor" id="sponsor5-input" accept="image/*">
@@ -94,12 +97,22 @@
             <input type="file" class="sponsor" id="sponsor8-input" accept="image/*">
         </div>
         <div class="controller__bottom-right">
-            <input type="text" id="bottom-right-text-input" placeholder="Bottom Right">
+            <input type="text" id="bottom-right-text-input" placeholder="Bottom Right" maxlength="60">
         </div>
     </div>
 
     <label for="player-name-color-input">Secondary Color:</label>
     <input type="color" id="player-name-color-input" value="#FFFFFF">
+    <br>
+    <label for="banner-background-color-input">Background Color:</label>
+    <input type="color" id="banner-background-color-input" value="#FFFFFF">
+    <br>
+    <label for="banner-background-image-toggle">Background Image:</label>
+    <input type="checkbox" id="banner-background-image-toggle" checked>
+    <br>
+    <label for="banner-background-input">Background Image:</label>
+    <input type="file" id="banner-background-input" accept="image/*">
+    <br>
     <button id="download-banner">Download Banner</button>
 
     <!-- BANNER -->
