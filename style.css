@@ -1,0 +1,428 @@
+/* style.css */
+
+.controller {
+    color: auto;
+    align-items: center;
+    align-content: center;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    grid-template-rows: repeat(3, auto);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    grid-template-areas:
+        "top-left top-sponsors top-right"
+        "playercards playercards playercards"
+        "bottom-left bottom-sponsors bottom-right";
+}
+
+.controller__top-left { grid-area: 1 / 1 / 2 / 2; }
+.controller__top-sponsors { grid-area: 1 / 2 / 2 / 3; }
+.controller__top-right { grid-area: 1 / 3 / 2 / 4; }
+.controller__playercards { grid-area: 2 / 1 / 3 / 4; }
+.controller__bottom-left { grid-area: 3 / 1 / 4 / 2; }
+.controller__bottom-sponsors { grid-area: 3 / 2 / 4 / 3; }
+.controller__bottom-right { grid-area: 3 / 3 / 4 / 4; }
+
+.controller__playercards {
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    grid-template-rows: repeat(2, auto) repeat(2, auto);
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+    grid-template-areas:
+        "playercard1 playercard2 playercard3 playercard4"
+        "playercard5 playercard6 playercard7 playercard8";
+}
+
+#playercard1 { grid-area: 1 / 1 / 2 / 2; }
+#playercard2 { grid-area: 1 / 2 / 2 / 3; }
+#playercard3 { grid-area: 1 / 3 / 2 / 4; }
+#playercard4 { grid-area: 1 / 4 / 2 / 5; }
+#playercard5 { grid-area: 2 / 1 / 3 / 2; }
+#playercard6 { grid-area: 2 / 2 / 3 / 3; }
+#playercard7 { grid-area: 2 / 3 / 3 / 4; }
+#playercard8 { grid-area: 2 / 4 / 3 / 5; }
+
+/* Estilos específicos para cada área de la grilla (para visualización) */
+.controller__top-left {
+    background-color: #ffe4e1; /* Rosa claro */
+    text-align: left;
+    align-items: center;
+    align-content: center;
+    font-weight: bold;
+    border-radius: 8px;
+}
+.controller__top-sponsors, .controller__bottom-sponsors {
+    background-color: #e0ffff; /* Cian claro */
+    text-align: end;
+    align-items: center;
+    align-content: center;
+    font-weight: bold;
+    border-radius: 8px;
+}
+.controller__top-right {
+    background-color: #fafad2; /* Amarillo claro */
+    text-align: right;
+    align-items: center;
+    align-content: center;
+    font-weight: bold;
+    border-radius: 8px;
+}
+.controller__playercards {
+    background-color: #e6e6fa; /* Lavanda */
+    text-align: center;
+    align-items: center;
+    align-content: center;
+    font-weight: bold;
+    border-radius: 8px;
+}
+.controller__bottom-left {
+    background-color: #f0fff0; /* Verde menta */
+    text-align: left;
+    align-items: center;
+    align-content: center;
+    font-weight: bold;
+    border-radius: 8px;
+}
+.controller__bottom-right {
+    background-color: #f5f5dc; /* Beige */
+    text-align: right;
+    align-items: center;
+    align-content: center;
+    font-weight: bold;
+    border-radius: 8px;
+}
+
+/* Estilos específicos para cada área de la grilla (para visualización) */
+.playercard {
+    background-color: #a5a5ce; /* Lavanda */
+    padding: 10px;
+    text-align: left;
+    align-items: center;
+    align-content: center;
+    font-weight: bold;
+    border-radius: 8px;
+}
+
+/* Estilos Prefix, Tag, Main, Second, Third y sponsors*/
+.prefix {
+    width: 50px;
+    margin-right: 5px;
+}
+
+.tag {
+    width: 100px;
+    margin-right: 0;
+}
+
+.main, .secondary, .tertiary {
+    width: 135px;
+    margin-right: 0;
+}
+
+.sponsor {
+    width: 135px;
+}
+
+@media (max-width: 768px) {
+    .controller {
+        /* Cambio el diseño del .controller a una sola columna */
+        grid-template-columns: 1fr; /* Una sola columna que ocupe todo el ancho */
+        grid-template-rows: auto; /* Las filas se ajustan automáticamente */
+        grid-template-areas:
+            "top-left"
+            "top-sponsors"
+            "top-right"
+            "playercards"
+            "bottom-left"
+            "bottom-sponsors"
+            "bottom-right";
+    }
+
+    /* Redefinimos las áreas de la grilla para la nueva estructura de una sola columna */
+    .controller__top-left { grid-area: top-left; }
+    .controller__top-sponsors { grid-area: top-sponsors; }
+    .controller__top-right { grid-area: top-right; }
+    .controller__playercards { grid-area: playercards; }
+    .controller__bottom-left { grid-area: bottom-left; }
+    .controller__bottom-sponsors { grid-area: bottom-sponsors; }
+    .controller__bottom-right { grid-area: bottom-right; }
+
+    .controller__playercards {
+        /* Cambio el diseño de las playercards a 2 columnas en 4 filas */
+        grid-template-columns: repeat(2, 1fr); /* 2 columnas de igual ancho */
+        grid-template-rows: repeat(4, auto); /* 4 filas para 8 elementos */
+        grid-template-areas:
+            "playercard1 playercard2"
+            "playercard3 playercard4"
+            "playercard5 playercard6"
+            "playercard7 playercard8";
+    }
+
+    /* Reasignamos las áreas de las playercards a la nueva estructura */
+    #playercard1 { grid-area: 1 / 1 / 2 / 2; }
+    #playercard2 { grid-area: 1 / 2 / 2 / 3; }
+    #playercard3 { grid-area: 2 / 1 / 3 / 2; }
+    #playercard4 { grid-area: 2 / 2 / 3 / 3; }
+    #playercard5 { grid-area: 3 / 1 / 4 / 2; }
+    #playercard6 { grid-area: 3 / 2 / 4 / 3; }
+    #playercard7 { grid-area: 4 / 1 / 5 / 2; }
+    #playercard8 { grid-area: 4 / 2 / 5 / 3; }
+
+    /* Ajustes para los inputs dentro de las playercards para pantallas más pequeñas */
+    
+    .prefix {
+    width: 50px;
+    margin-right: 5px;
+    }
+
+    .tag {
+        width: 100px;
+        margin-right: 0;
+    }
+
+    .main, .secondary, .tertiary {
+        width: 135px;
+        margin-right: 0;
+    }
+
+    .sponsor {
+        width: 135px;
+    }
+}
+
+/* Opcional: Para pantallas aún más pequeñas (móviles), por ejemplo, hasta 480px de ancho */
+@media (max-width: 480px) {
+    .controller__playercards {
+        /* En pantallas muy pequeñas, las playercards se ponen en una sola columna */
+        grid-template-columns: 1fr; /* Una sola columna */
+        grid-template-rows: repeat(8, auto); /* 8 filas para cada tarjeta */
+        grid-template-areas:
+            "playercard1"
+            "playercard2"
+            "playercard3"
+            "playercard4"
+            "playercard5"
+            "playercard6"
+            "playercard7"
+            "playercard8";
+    }
+
+    /* Reasignamos las áreas de las playercards a la nueva estructura */
+    #playercard1 { grid-area: 1 / 1 / 2 / 2; }
+    #playercard2 { grid-area: 2 / 1 / 3 / 2; }
+    #playercard3 { grid-area: 3 / 1 / 4 / 2; }
+    #playercard4 { grid-area: 4 / 1 / 5 / 2; }
+    #playercard5 { grid-area: 5 / 1 / 6 / 2; }
+    #playercard6 { grid-area: 6 / 1 / 7 / 2; }
+    #playercard7 { grid-area: 7 / 1 / 8 / 2; }
+    #playercard8 { grid-area: 8 / 1 / 9 / 2; }
+
+    /* Ajustes adicionales para inputs si es necesario */
+    .playercard {
+        padding: 5px; /* Reduce el padding de las tarjetas en pantallas muy pequeñas */
+    }
+}
+
+.banner {
+    display: flex;
+    background-image: url(Ref.png);
+    background-size: cover;
+    width: 98vw;
+    height: calc(98vw * 9/16); /* Mantiene la relación de aspecto 16:9 */
+    position: relative; /* ¡IMPORTANTE! Contexto de posicionamiento */
+    overflow: hidden; /* Para asegurar que nada del polígono se salga del banner */
+}
+
+.banner__top {
+    position: absolute;
+    top: 5%;
+    left: 3%;
+    width: 94%;
+    height: 10%;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    display: flex;
+    font-size: 2vw;
+    background-color: rgba(0, 0, 0, 0.25);
+}
+
+.banner__top-left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.25);
+}
+.banner__top-right {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.25);
+}
+
+.top--sponsor {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    max-height: 100%;
+    margin-right: 10px;
+    background-color: rgba(0, 0, 0, 0.25);
+}
+
+.banner__bottom {
+    position: absolute;
+    top: 85%;
+    left: 3%;
+    width: 94%;
+    height: 10%;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    font-size: 2vw;
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.25);
+}
+
+.banner__bottom-left {
+    width: fit-content;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.75);
+}
+.banner__bottom-right {
+    height: 100%;
+    display: flex;
+    justify-content:end;
+    align-items: center;
+    margin-right: 20%;
+    background-color: rgba(0, 0, 0, 0.75);
+}
+
+.bottom--sponsor {
+    display: flex;
+    align-items: right;
+    align-content: right;
+    max-height: 100%;
+    margin-right: 10px;
+    background-color: rgba(0, 0, 0, 0.25);
+}
+
+.banner__polygon {
+    display: flex; /* Sigue siendo flex para alinear su contenido (la imagen) */
+    position: absolute;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.75);
+    overflow: hidden;
+    z-index: 2;
+}
+
+.polygon__main1 {
+    height: 100%;
+    min-height: calc(35vw * 0.5625);
+    width: auto;
+    transform: translate(-50%, 0%);
+    display: block;
+    object-fit: contain;
+    position: absolute;
+    filter: drop-shadow(20px 10px 0.5px rgba(38, 62, 218, 0.75));
+}
+
+.polygon__secondary, .polygon__tertiary {
+    height: 1%;
+    min-height: calc(6vw * 0.5625);
+    width: auto;
+    transform: translate(-50%, 0%);
+    display: block;
+    object-fit: contain;
+    position: absolute;
+}
+
+
+#polygon1 { top: 16.7%; left: 2.8%;     width: 31.1%;   height: 55.7%;  clip-path: polygon(0 0, 100% 0, 59% 100%, 0% 100%); }
+#polygon2 { top: 24%;   left: 25.8%;    width: 28.7%;   height: 32.3%;  clip-path: polygon(25.5% 0%, 100% 0%, 70% 90%, 0% 100%); }
+#polygon3 { top: 24%;   left: 47%;      width: 31.6%;   height: 28.9%;  clip-path: polygon(27% 0%, 79.7% 0%, 100% 82.5%, 0% 100%); }
+#polygon4 { top: 24%;   left: 73.2%;    width: 24.1%;   height: 23.7%;  clip-path: polygon(0% 0%, 100% 0%, 100% 88%, 26.5% 100%); }
+#polygon5 { top: 56%;   left: 20.9%;    width: 27.3%;   height: 21.5%;  clip-path: polygon(17% 9%, 56% 0%, 100% 100%, 0% 100%); }
+#polygon6 { top: 58.8%; left: 41.6%;    width: 19.7%;   height: 24.4%;  clip-path: polygon(0% 17.5%, 100% 0%, 100% 100%, 56% 100%); }
+#polygon7 { top: 55.1%; left: 62%;      width: 18.7%;   height: 28.15%; clip-path: polygon(0% 12.5%, 100% 0%, 48.5% 100%, 0% 100%); }
+#polygon8 { top: 46.4%; left: 74%;      width: 23.2%;   height: 31.7%;  clip-path: polygon(43.5% 6.5%, 100% 0%, 100% 100%, 0% 100%); }
+
+.player-name--container { 
+    display: flex; /* Sigue siendo flex para alinear su contenido (la imagen) */
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 2vw;
+    background-color: rgba(0, 0, 0, 0.75);
+    overflow: hidden;
+    z-index: 5;
+}
+
+#player1-name--container { top: 74.25%; left: 2.8%; width: 18%; height: 9%; clip-path: polygon(0 0, 100% 0, 89% 100%, 0% 100%); }
+#player2-name--container { top: 16.7%; left: 33.3%; width: 23.3%; height: 6.1%; clip-path: polygon(6% 0, 100% 0, 92.5% 100%, 0% 100%); }
+#player3-name--container { top: 16.7%; left: 55.83%; width: 16.05%; height: 6.1%; clip-path: polygon(11% 0, 90% 0, 100% 100%, 0% 100%); }
+#player4-name--container { top: 16.7%; left: 71.1%; width: 26.2%; height: 6.1%; clip-path: polygon(0 0, 100% 0, 100% 100%, 6.4% 100%); }
+#player5-name--container { top: 78.7%; left: 19.6%; width: 31.7%; height: 4.5%; clip-path: polygon(3% 0, 92.3% 0, 100% 100%, 0% 100%); }
+#player6-name--container { top: 51.9%; left: 37.45%; width: 23.83%; height: 9.9%; clip-path: polygon(0 40%, 100% 0, 100% 56%, 13.5% 100%); }
+#player7-name--container { top: 48.5%; left: 62%; width: 20.8%; height: 8.7%; clip-path: polygon(0 38%, 100% 0, 92.5% 58%, 0% 100%); }
+#player8-name--container { top: 79.4%; left: 72.1%; width: 25.1%; height: 3.8%; clip-path: polygon(5% 0, 100% 0, 100% 100%, 0% 100%); }
+
+.player-name { 
+    display: flex; /* Sigue siendo flex para alinear su contenido (la imagen) */
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    color: white;
+    font-size: 100%;
+    overflow: hidden;
+    z-index: 5;
+}
+
+#player6-name { 
+    transform: rotate(-6.5deg);
+}
+#player7-name { 
+    transform: rotate(-5deg);
+}
+
+.player-prefix { 
+    opacity: 0.75;
+    margin-right: 1%;
+    margin-top: 1%;
+    font-size: 80%;
+}
+
+#polygon1__main1 { top: 0%;     left: 50%; }
+#polygon2__main1 { top: 0%;     left: 50%; }
+#polygon3__main1 { top: -5%;    left: 52%; }
+#polygon4__main1 { top: -7%;    left: 55%; }
+#polygon5__main1 { top: -7%;    left: 50%; }
+#polygon6__main1 { top: -3%;     left: 65%; }
+#polygon7__main1 { top: 0%;     left: 45%; }
+#polygon8__main1 { top: 10%;    left: 50%; }
+
+#polygon1__secondary { top: 1%; left: 90%; }
+#polygon2__secondary { top: 1%; left: 90%; min-height: calc(5vw * 0.5625); }
+#polygon3__secondary { top: 2%; left: 76%; min-height: calc(5vw * 0.5625); }
+#polygon4__secondary { top: 1%; left: 94%; min-height: calc(5vw * 0.5625); }
+#polygon5__secondary { top: 9%; left: 20%; min-height: calc(4.5vw * 0.5625); }
+#polygon6__secondary { top: 1.5%; left: 93%; min-height: calc(4.5vw * 0.5625); }
+#polygon7__secondary { top: 2.5%; left: 85.5%; min-height: calc(4.5vw * 0.5625); }
+#polygon8__secondary { top: 2%; left: 94%; min-height: calc(4.5vw * 0.5625); }
+
+#polygon1__tertiary { top: 12%; left: 86%; }
+#polygon2__tertiary { top: 15%; left: 87%; min-height: calc(5vw * 0.5625); }
+#polygon3__tertiary { top: 18%; left: 81%; min-height: calc(5vw * 0.5625); }
+#polygon4__tertiary { top: 25%; left: 94%; min-height: calc(5vw * 0.5625); }
+#polygon5__tertiary { top: 30%; left: 16.5%; min-height: calc(4.5vw * 0.5625); }
+#polygon6__tertiary { top: 22%; left: 93%; min-height: calc(4.5vw * 0.5625); }
+#polygon7__tertiary { top: 16.5%; left: 79%; min-height: calc(4.5vw * 0.5625); }
+#polygon8__tertiary { top: 17.5%; left: 94%; min-height: calc(4.5vw * 0.5625); }

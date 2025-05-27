@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>retoper base</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+</head>
+
+<body>
+    <!-- CONTROLLER -->
+    <div class="controller">
+        <!-- TOP TEXT AND SPONSORS -->
+        <div class="controller__top-left">
+            <input type="text" id="top-left-text-input" placeholder="Top Left">
+        </div>
+        <div class="controller__top-sponsors">
+            <input type="file" class="sponsor" id="sponsor1-input" accept="image/*">
+            <input type="file" class="sponsor" id="sponsor2-input" accept="image/*">
+            <input type="file" class="sponsor" id="sponsor3-input" accept="image/*">
+            <input type="file" class="sponsor" id="sponsor4-input" accept="image/*">
+        </div>
+        <div class="controller__top-right">
+            <input type="text" id="top-right-text-input" placeholder="Top Right">
+        </div>
+        <div class="controller__playercards">
+            <div class="playercard" id="playercard1">
+                <input type="text" class="prefix" id="prefix1-input" placeholder="Prefix 1">
+                <input type="text" class="tag" id="tag1-input" placeholder="Tag 1" class="tag-input">
+                <p>Main <input type="file" class="main" id="main1-input" placeholder="Main 1" accept="image/*" class="main-input"></p>
+                <p>Secondary <input type="file" class="secondary" id="secondary1-input" placeholder="Secondary 1" accept="image/*" class="secondary-input"></p>
+                <p>Tertiary <input type="file" class="tertiary" id="tertiary1-input" placeholder="Tertiary 1" accept="image/*" class="tertiary-input"></p>
+            </div>
+            <!-- PLAYERCARDS -->
+            <div class="playercard" id="playercard2">
+                <input type="text" class="prefix" id="prefix2-input" placeholder="Prefix 2" class="prefix-input">
+                <input type="text" class="tag" id="tag2-input" placeholder="Tag 2" class="tag-input">
+                <p>Main <input type="file" class="main" id="main2-input" placeholder="Main 2" accept="image/*" class="main-input"></p>
+                <p>Secondary <input type="file" class="secondary" id="secondary2-input" placeholder="Secondary 2" accept="image/*" class="secondary-input"></p>
+                <p>Tertiary <input type="file" class="tertiary" id="tertiary2-input" placeholder="Tertiary 2" accept="image/*" class="tertiary-input"></p>
+            </div>
+            <div class="playercard" id="playercard3">
+                <input type="text" class="prefix" id="prefix3-input" placeholder="Prefix 3" class="prefix-input">
+                <input type="text" class="tag" id="tag3-input" placeholder="Tag 3" class="tag-input">
+                <p>Main <input type="file" class="main" id="main3-input" placeholder="Main 3" accept="image/*" class="main-input"></p>
+                <p>Secondary <input type="file" class="secondary" id="secondary3-input" placeholder="Secondary 3" accept="image/*" class="secondary-input"></p>
+                <p>Tertiary <input type="file" class="tertiary" id="tertiary3-input" placeholder="Tertiary 3" accept="image/*" class="tertiary-input"></p>
+            </div>
+            <div class="playercard" id="playercard4">
+                <input type="text" class="prefix" id="prefix4-input" placeholder="Prefix 4" class="prefix-input">
+                <input type="text" class="tag" id="tag4-input" placeholder="Tag 4" class="tag-input">
+                <p>Main <input type="file" class="main" id="main4-input" placeholder="Main 4" accept="image/*" class="main-input"></p>
+                <p>Secondary <input type="file" class="secondary" id="secondary4-input" placeholder="Secondary 4" accept="image/*" class="secondary-input"></p>
+                <p>Tertiary <input type="file" class="tertiary" id="tertiary4-input" placeholder="Tertiary 4" accept="image/*" class="tertiary-input"></p>
+            </div>
+            <div class="playercard" id="playercard5">
+                <input type="text" class="prefix" id="prefix5-input" placeholder="Prefix 5" class="prefix-input">
+                <input type="text" class="tag" id="tag5-input" placeholder="Tag 5" class="tag-input">
+                <p>Main <input type="file" class="main" id="main5-input" placeholder="Main 5" accept="image/*" class="main-input"></p>
+                <p>Secondary <input type="file" class="secondary" id="secondary5-input" placeholder="Secondary 5" accept="image/*" class="secondary-input"></p>
+                <p>Tertiary <input type="file" class="tertiary" id="tertiary5-input" placeholder="Tertiary 5" accept="image/*" class="tertiary-input"></p>
+            </div>
+            <div class="playercard" id="playercard6">
+                <input type="text" class="prefix" id="prefix6-input" placeholder="Prefix 6" class="prefix-input">
+                <input type="text" class="tag" id="tag6-input" placeholder="Tag 6" class="tag-input">
+                <p>Main <input type="file" class="main" id="main6-input" placeholder="Main 6" accept="image/*" class="main-input"></p>
+                <p>Secondary <input type="file" class="secondary" id="secondary6-input" placeholder="Secondary 6" accept="image/*"></p>
+                <p>Tertiary <input type="file" class="tertiary" id="tertiary6-input" placeholder="Tertiary 6" accept="image/*"></p>
+            </div>
+            <div class="playercard" id="playercard7">
+                <input type="text" class="prefix" id="prefix7-input" placeholder="Prefix 7" class="prefix-input">
+                <input type="text" class="tag" id="tag7-input" placeholder="Tag 7" class="tag-input">
+                <p>Main <input type="file" class="main" id="main7-input" placeholder="Main 7" accept="image/*" class="main-input"></p>
+                <p>Secondary <input type="file" class="secondary" id="secondary7-input" placeholder="Secondary 7" accept="image/*" class="secondary-input"></p>
+                <p>Tertiary <input type="file" class="tertiary" id="tertiary7-input" placeholder="Tertiary 7" accept="image/*" class="tertiary-input"></p>
+            </div>
+            <div class="playercard" id="playercard8">
+                <input type="text" class="prefix" id="prefix8-input" placeholder="Prefix 8" class="prefix-input">
+                <input type="text" class="tag" id="tag8-input" placeholder="Tag 8" class="tag-input">
+                <p>Main <input type="file" class="main" id="main8-input" placeholder="Main 8" accept="image/*" class="main-input"></p>
+                <p>Secondary <input type="file" class="secondary" id="secondary8-input" placeholder="Secondary 8" accept="image/*" class="secondary-input"></p>
+                <p>Tertiary <input type="file" class="tertiary" id="tertiary8-input" placeholder="Tertiary 8" accept="image/*" class="tertiary-input"></p>
+            </div>
+        </div>
+        <!-- BOTTOM TEXT AND SPONSORS -->
+        <div class="controller__bottom-left">
+            <input type="text" id="bottom-left-text-input" placeholder="Bottom Left">
+        </div>
+        <div class="controller__bottom-sponsors">
+            <input type="file" class="sponsor" id="sponsor5-input" accept="image/*">
+            <input type="file" class="sponsor" id="sponsor6-input" accept="image/*">
+            <input type="file" class="sponsor" id="sponsor7-input" accept="image/*">
+            <input type="file" class="sponsor" id="sponsor8-input" accept="image/*">
+        </div>
+        <div class="controller__bottom-right">
+            <input type="text" id="bottom-right-text-input" placeholder="Bottom Right">
+        </div>
+    </div>
+
+    <button id="download-banner">Download Banner</button>
+
+    <!-- BANNER -->
+    <div class="banner">
+        <!-- TOP TEXT AND SPONSORS -->
+        <div class="banner__top">
+            <div class="banner__top-left">
+                <div class="banner__top--text" id="top--left-text">Smashy Weekends 20 - Chao5 Singles</div>
+            </div>
+            <div class="banner__top-right">
+                <img class="top--sponsor" id="sponsor1" src="https://i.imgur.com/7xnFRss.png">
+                <img class="top--sponsor" id="sponsor2" src="https://i.imgur.com/7xnFRss.png">
+                <img class="top--sponsor" id="sponsor3" src="https://i.imgur.com/7xnFRss.png">
+                <img class="top--sponsor" id="sponsor4" src="https://i.imgur.com/7xnFRss.png">
+                <div class="banner__top--text" id="top--right-text">start.gg/smashyweekends20</div>
+            </div>
+        </div>
+        <!-- TOP TEXT AND SPONSORS -->
+        <div class="banner__bottom">
+            <div class="banner__bottom-left">
+                <div class="banner__top--text" id="bottom--left-text">DD/MM/YY - Location - # Participants</div>
+            </div>
+            <div class="banner__bottom-right">
+                <img class="bottom--sponsor" id="sponsor5" src="https://i.imgur.com/7xnFRss.png">
+                <img class="bottom--sponsor" id="sponsor6" src="https://i.imgur.com/7xnFRss.png">
+                <img class="bottom--sponsor" id="sponsor7" src="https://i.imgur.com/7xnFRss.png">
+                <img class="bottom--sponsor" id="sponsor8" src="https://i.imgur.com/7xnFRss.png">
+            </div>
+        </div>
+        <!-- PLAYER 1 -->
+        <div class="player-name--container" id="player1-name--container">
+            <div class="player-name" id="player1-name">
+                <div class="player-prefix" id="player1-prefix">TPPO</div>
+                <div class="player-tag" id="player1-tag">Suito</div>
+            </div>
+        </div>
+        <div class="banner__polygon" id="polygon1">
+            <img src="el metepene.png" class="polygon__main1" id="polygon1__main1">
+            <img src="Mario (1).png" class="polygon__secondary" id="polygon1__secondary">
+            <img src="Mario (1).png" class="polygon__tertiary" id="polygon1__tertiary">
+        </div>
+        <!-- PLAYER 2 -->
+        <div class="player-name--container" id="player2-name--container">
+            <div class="player-name" id="player2-name">
+                <div class="player-prefix" id="player2-prefix">TPPO</div>
+                <div class="player-tag" id="player2-tag">Suito</div>
+            </div>
+        </div>
+        <div class="banner__polygon" id="polygon2">
+            <img src="el metepene.png" class="polygon__main1" id="polygon2__main1">
+            <img src="Mario (1).png" class="polygon__secondary" id="polygon2__secondary">
+            <img src="Mario (1).png" class="polygon__tertiary" id="polygon2__tertiary">
+        </div>
+        <!-- PLAYER 3 -->
+        <div class="player-name--container" id="player3-name--container">
+            <div class="player-name" id="player3-name">
+                <div class="player-prefix" id="player3-prefix">TPPO</div>
+                <div class="player-tag" id="player3-tag">Suito</div>
+            </div>
+        </div>
+        <div class="banner__polygon" id="polygon3">
+            <img src="el metepene.png" class="polygon__main1" id="polygon3__main1">
+            <img src="Mario (1).png" class="polygon__secondary" id="polygon3__secondary">
+            <img src="Mario (1).png" class="polygon__tertiary" id="polygon3__tertiary">
+        </div>
+        <!-- PLAYER 4 -->
+        <div class="player-name--container" id="player4-name--container">
+            <div class="player-name" id="player4-name">
+                <div class="player-prefix" id="player4-prefix">TPPO</div>
+                <div class="player-tag" id="player4-tag">Suito</div>
+            </div>
+        </div>
+        <div class="banner__polygon" id="polygon4">
+            <img src="el metepene.png" class="polygon__main1" id="polygon4__main1">
+            <img src="Mario (1).png" class="polygon__secondary" id="polygon4__secondary">
+            <img src="Mario (1).png" class="polygon__tertiary" id="polygon4__tertiary">
+        </div>
+        <!-- PLAYER 5 -->
+        <div class="player-name--container" id="player5-name--container">
+            <div class="player-name" id="player5-name">
+                <div class="player-prefix" id="player5-prefix">TPPO</div>
+                <div class="player-tag" id="player5-tag">Suito</div>
+            </div>
+        </div>
+        <div class="banner__polygon" id="polygon5">
+            <img src="el metepene.png" class="polygon__main1" id="polygon5__main1">
+            <img src="Mario (1).png" class="polygon__secondary" id="polygon5__secondary">
+            <img src="Mario (1).png" class="polygon__tertiary" id="polygon5__tertiary">
+        </div>
+        <!-- PLAYER 6 -->
+        <div class="player-name--container" id="player6-name--container">
+            <div class="player-name" id="player6-name">
+                <div class="player-prefix" id="player6-prefix">TPPO</div>
+                <div class="player-tag" id="player6-tag">Suito</div>
+            </div>
+        </div>
+        <div class="banner__polygon" id="polygon6">
+            <img src="el metepene.png" class="polygon__main1" id="polygon6__main1">
+            <img src="Mario (1).png" class="polygon__secondary" id="polygon6__secondary">
+            <img src="Mario (1).png" class="polygon__tertiary" id="polygon6__tertiary">
+        </div>
+        <!-- PLAYER 7 -->
+        <div class="player-name--container" id="player7-name--container">
+            <div class="player-name" id="player7-name">
+                <div class="player-prefix" id="player7-prefix">TPPO</div>
+                <div class="player-tag" id="player7-tag">Suito</div>
+            </div>
+        </div>
+        <div class="banner__polygon" id="polygon7">
+            <img src="el metepene.png" class="polygon__main1" id="polygon7__main1">
+            <img src="Mario (1).png" class="polygon__secondary" id="polygon7__secondary">
+            <img src="Mario (1).png" class="polygon__tertiary" id="polygon7__tertiary">
+        </div>
+        <!-- PLAYER 8 -->
+        <div class="player-name--container" id="player8-name--container">
+            <div class="player-name" id="player8-name">
+                <div class="player-prefix" id="player8-prefix">TPPO</div>
+                <div class="player-tag" id="player8-tag">Suito</div>
+            </div>
+        </div>
+        <div class="banner__polygon" id="polygon8">
+            <img src="el metepene.png" class="polygon__main1" id="polygon8__main1">
+            <img src="Mario (1).png" class="polygon__secondary" id="polygon8__secondary">
+            <img src="Mario (1).png" class="polygon__tertiary" id="polygon8__tertiary">
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
