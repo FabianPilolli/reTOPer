@@ -2,19 +2,28 @@ document.addEventListener('DOMContentLoaded', () => {
     // Todo tu código JavaScript va dentro de esta función
     // Ahora, cuando se ejecute este código, el DOM ya estará listo.
 
-    const downloadButton = document.getElementById('download-banner');
-    if (downloadButton) { // Siempre es buena práctica verificar si el elemento existe
-        downloadButton.addEventListener('click', () => {
-            html2canvas(document.querySelector('.banner'), {
-                useCORS: true
-            }).then(canvas => {
-                const link = document.createElement('a');
-                link.download = 'retoper_banner.png';
-                link.href = canvas.toDataURL('image/png');
-                link.click();
-            });
+downloadButton.addEventListener('click', () => {
+    console.log("Click en el botón de descarga. Intentando capturar el banner...");
+    // Introduce un pequeño retraso antes de la captura
+    setTimeout(() => {
+        html2canvas(document.querySelector('.banner'), {
+            useCORS: true, // Crucial para imágenes de otros orígenes (incluyendo imágenes locales al servir con Live Server/Python)
+            allowTaint: true, // Puede ayudar en algunos casos, aunque useCORS es la principal
+            ignoreElements: (element) => { // Ignora elementos que no quieres en la captura (ej. los inputs del controlador)
+                return element.classList.contains('controller');
+            }
+        }).then(canvas => {
+            console.log("Banner capturado en un canvas. Generando enlace de descarga...");
+            const link = document.createElement('a');
+            link.download = 'retoper_banner.png'; // Nombre del archivo
+            link.href = canvas.toDataURL('image/png'); // Convierte el canvas a imagen PNG
+            link.click(); // Simula el click para descargar
+            console.log("Descarga iniciada.");
+        }).catch(error => {
+            console.error("Error al generar o descargar el banner:", error); // Captura cualquier error de html2canvas
         });
-    }
+    }, 200); // Prueba con 200 milisegundos (0.2 segundos). Puedes ajustar este valor.
+});
 
     // Get references to elements and add event listeners
     const topLeftTextInput = document.getElementById('top-left-text-input');
